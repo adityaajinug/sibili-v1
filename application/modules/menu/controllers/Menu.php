@@ -6,7 +6,8 @@ class Menu extends CI_Controller
   public function index()
   {
     $data = [
-      'menu' => $this->db->get('user_menu')->result_array()
+      'menu' => $this->db->get('user_menu')->result_array(),
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
     ];
     $this->template->load('templates/templates', 'menu_view/index', $data);
   }
