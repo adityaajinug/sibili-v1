@@ -23,16 +23,42 @@ class KKI_model extends CI_Model
   }
   public function getKelompok()
   {
-    $this->db->distinct('groups.group');
-    $this->db->from('groups');
+    $this->db
+      ->select('group_code.code, dosen.dosen_name')
+      ->from('groups')
+      ->join('dosen', 'dosen.group_id = groups.group')
+      ->join('group_code', 'group_code.group_id = groups.group');
+
     return $this->db->get()->result_array();
   }
-  public function getDetailKelompok()
+  public function getKelompokId($id)
   {
-    $this->db->distinct('dosen.dosen_name , mahasiswa.mhs_name, groups.group');
-    $this->db->from('dosen');
-    $this->db->join('groups', 'dosen.id_dosen = groups.dosen_id');
-    $this->db->join('mahasiswa', 'mahasiswa.id_mhs = groups.mhs_id');
+    $data = [
+      'group_code.code' => $id,
+    ];
+
+    $this->db
+      ->select('group_code.code, dosen.dosen_name, groups.group')
+      ->from('groups')
+      ->join('dosen', 'dosen.group_id = groups.group')
+      ->join('group_code', 'group_code.group_id = groups.group')
+      ->where($data);
+
+    return $this->db->get()->row_array();
+  }
+  public function getDetailKelompok($id)
+  {
+    $data = [
+      'group_code.code' => $id,
+    ];
+    $this->db->distinct('group_code.code');
+    $this->db->select('user.username, mahasiswa.mhs_name, mahasiswa.status, mahasiswa.email, dosen.dosen_name, group_code.code');
+    $this->db->from('groups');
+    $this->db->join('dosen', 'dosen.group_id = groups.group');
+    $this->db->join('mahasiswa', 'mahasiswa.group_id = groups.group');
+    $this->db->join('group_code', 'group_code.group_id = groups.group');
+    $this->db->join('user', 'user.id_user = mahasiswa.user_id');
+    $this->db->where($data);
     return $this->db->get()->result_array();
   }
 }

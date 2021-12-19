@@ -6,7 +6,7 @@ class User_model extends CI_Model
     public function getDosen()
     {
         $data = $this->session->userdata('username');
-        $this->db->select('user.username, dosen.complete_name');
+        $this->db->select('user.username, dosen.dosen_name');
         $this->db->from('user');
         $this->db->join('dosen', 'user.id_user = dosen.user_id', 'left');
         $this->db->where('user.username=', $data);
@@ -15,7 +15,7 @@ class User_model extends CI_Model
     public function getMhs()
     {
         $data = $this->session->userdata('username');
-        $this->db->select('user.username, mahasiswa.complete_name');
+        $this->db->select('user.username, mahasiswa.mhs_name');
         $this->db->from('user');
         $this->db->join('mahasiswa', 'user.id_user = mahasiswa.user_id', 'left');
         $this->db->where('user.username=', $data);

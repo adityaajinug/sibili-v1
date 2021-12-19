@@ -17,24 +17,34 @@ class KKI extends CI_Controller
     ];
     $this->template->load('templates/templates', 'koordinator/index', $data);
   }
-  public function dosen_pembimbing()
+  public function kelompok()
   {
     $data = [
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->kki->getDosen(),
       'mhs' => $this->kki->getMhs(),
       'kelompok' => $this->kki->getKelompok(),
-      'detailKelompok' => $this->kki->getDetailKelompok()
     ];
-    $this->template->load('templates/templates', 'koordinator/dosen_pembimbing/index', $data);
+    $this->template->load('templates/templates', 'koordinator/kelompok/index', $data);
   }
-  public function tambah_dosen_pembimbing()
+  public function detail_kelompok($id)
+  {
+    $data = [
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+      'dosen' => $this->kki->getDosen(),
+      'mhs' => $this->kki->getMhs(),
+      'kelompok' => $this->kki->getKelompokId($id),
+      'detail'  => $this->kki->getDetailKelompok($id)
+    ];
+    $this->template->load('templates/templates', 'koordinator/kelompok/detail', $data);
+  }
+  public function tambah_kelompok()
   {
     $data = [
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->kki->getDosen(),
       'mhs' => $this->kki->getMhs()
     ];
-    $this->template->load('templates/templates', 'koordinator/dosen_pembimbing/tambah', $data);
+    $this->template->load('templates/templates', 'koordinator/kelompok/tambah', $data);
   }
 }

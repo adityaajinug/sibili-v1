@@ -3,10 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
-  // public function index()
-  // {
-  //   $this->template->load('templates/templates', 'admin_view/index');
-  // }
+  public function __construct()
+  {
+    parent::__construct();
+    $this->load->model('Admin_model', 'admin');
+  }
+
   public function role()
   {
     $data = [
@@ -17,8 +19,9 @@ class Admin extends CI_Controller
   }
   public function roleAkses($role_id)
   {
-    $this->load->model('Admin_model', 'admin');
+
     $data = [
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'role' => $this->db->get_where('user_role', ['id' => $role_id])->row_array(),
       'akses' => $this->admin->getmenusub(),
       'menu' => $this->admin->getmenu(),
@@ -29,8 +32,9 @@ class Admin extends CI_Controller
   }
   public function akses_sub($akses_id)
   {
-    $this->load->model('Admin_model', 'admin');
+
     $data = [
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'role' => $this->db->get_where('user_role', ['id' => $akses_id])->row_array(),
       'submenu' => $this->db->get('user_sub_menu')->result_array()
 

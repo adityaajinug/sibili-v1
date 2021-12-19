@@ -1,9 +1,9 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <a href="<?= base_url('kki/tambah_dosen_pembimbing') ?>" class="btn btn-primary mb-2 shadow mb-3">Tambah </a>
+            <a href="<?= base_url('kki/tambah_dosen_pembimbing') ?>" class="btn btn-primary mb-2 shadow mb-3" style="border-radius:10px;">Tambah </a>
 
-            <div class="card shadow-lg">
+            <div class="card shadow-lg" style="border-radius:10px;">
                 <div class="card-body">
                     <h4 class="card-title">Tabel Dosen Pembimbing</h4>
 
@@ -12,7 +12,8 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Kelompok</th>
+                                    <!-- <th>Kelompok</th> -->
+                                    <th>Dosen Pembimbing</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -22,12 +23,11 @@
                                 foreach ($kelompok as $k) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><?= $k['group']; ?></td>
+                                        <!-- <td><?= $k['code']; ?></td> -->
+                                        <td><?= $k['dosen_name']; ?></td>
 
                                         <td>
-                                            <a href="http://" class="badge badge-pill badge-secondary"> Detail</a>
-                                            <a href="http://" class="badge badge-pill badge-success"> Edit</a>
-                                            <a href="http://" class="badge badge-pill badge-danger"> Hapus</a>
+                                            <a href="<?= base_url('kki/detail_kelompok/' . $k['code']) ?>" class="badge badge-pill badge-success py-2 px-3"> Detail</a>
                                         </td>
                                     </tr>
 

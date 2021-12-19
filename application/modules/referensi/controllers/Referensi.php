@@ -5,14 +5,23 @@ class Referensi extends CI_Controller
 {
   public function file()
   {
-    $this->template->load('templates/templates', 'file_pa/index');
+    $data = [
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+    ];
+    $this->template->load('templates/templates', 'file_pa/index', $data);
   }
   public function file_detail()
   {
-    $this->template->load('templates/templates', 'file_pa/detail');
+    $data = [
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+    ];
+    $this->template->load('templates/templates', 'file_pa/detail', $data);
   }
   public function video()
   {
-    $this->template->load('templates/templates', 'video/index');
+    $data = [
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+    ];
+    $this->template->load('templates/templates', 'video/index', $data);
   }
 }

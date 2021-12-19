@@ -38,13 +38,13 @@
             <div class="card card-data shadow-sm">
                 <div class="card-body body-data">
                     <div class="data-desc">
-                        <h5>Dosen <br>Pembimbing</br></h5>
+                        <h5>Kelompok <br>Bimbingan</br></h5>
                         <div class="btn-data">
-                            <a href="<?= base_url('kki/dosen_pembimbing') ?>" class="btn btn-blue">Detail</a>
+                            <a href="<?= base_url('kki/kelompok') ?>" class="btn btn-blue">Detail</a>
                         </div>
                     </div>
                     <div class="icon-data">
-                        <i class="fas fa-user-tie"></i>
+                        <i class="fas fa-clone"></i>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
             <div class="card card-data shadow-sm">
                 <div class="card-body body-data">
                     <div class="data-desc">
-                        <h5>System <br>Log</br></h5>
+                        <h5>Aktivitas<br>Log</br></h5>
                         <div class="btn-data">
                             <button class="btn btn-blue">Detail</button>
                         </div>

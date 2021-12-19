@@ -174,11 +174,14 @@
                 <?php if ($user['role_id'] == 1) { ?>
                   <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?></span> - <span class="text-dark">Sibili Administrator</span>
                   <?php } else if ($user['role_id'] == 2) { ?>
-                    <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?> - </span> <span class="text-dark"><?= $mhs['complete_name'] ?></span><?php } ?>
+                    <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?> - </span> <span class="text-dark"><?= $mhs['mhs_name'] ?></span>
+                    <?php } else if ($user['role_id'] == 3) { ?>
+                      <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?> - </span> <span class="text-dark"><?= $dosen['dosen_name'] ?></span>
+                      <?php } ?>
 
-                    </span>
-                    <img src="<?= base_url('assets/vendor/') ?>/images/profile.png" alt="user" class="rounded-circle" width="40">
-                    <i data-feather="chevron-down" class="svg-icon"></i>
+                      </span>
+                      <img src="<?= base_url('assets/vendor/') ?>/images/profile.png" alt="user" class="rounded-circle" width="40">
+                      <i data-feather="chevron-down" class="svg-icon"></i>
               </a>
 
               <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
