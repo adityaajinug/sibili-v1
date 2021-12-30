@@ -22,9 +22,15 @@ class Login extends CI_Controller
     $this->load->model('Model_login', 'login');
     $username = $this->input->post('username');
     $password = $this->input->post('password');
+    // $status = $this->input->post('status');
+
 
     $process = $this->login->process_login($username, $password);
     if ($process) {
+
+
+
+
       redirect('dashboard');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger text-center" role="alert">

@@ -20,6 +20,7 @@
               <a href="">Lupa Password?</a>
             </small>
           </div>
+          <input type="hidden" name="status">
           <div class="form-group mt-5">
             <button type="submit" class="btn btn-login">Login</button>
           </div>

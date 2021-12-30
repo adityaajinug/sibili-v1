@@ -47,4 +47,24 @@ class KKI extends CI_Controller
     ];
     $this->template->load('templates/templates', 'koordinator/kelompok/tambah', $data);
   }
+  public function industri()
+  {
+    $data = [
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+      'dosen' => $this->kki->getDosen(),
+      'mhs' => $this->kki->getMhs(),
+      'industri' => $this->kki->getIndustri()
+    ];
+    $this->template->load('templates/templates', 'koordinator/data-industri/index', $data);
+  }
+  public function kelola_bab()
+  {
+    $data = [
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+      'dosen' => $this->kki->getDosen(),
+      'mhs' => $this->kki->getMhs(),
+      'bab' => $this->kki->getBab()
+    ];
+    $this->template->load('templates/templates', 'koordinator/kelola-bab/index', $data);
+  }
 }
