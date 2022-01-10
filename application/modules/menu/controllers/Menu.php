@@ -36,8 +36,8 @@ class Menu extends CI_Controller
   {
 
     $data = [
-      'menu' => $this->db->get('user_menu')->result_array(),
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+      'menu' => $this->db->get('user_menu')->result_array(),
       'submenu' => $this->menu->getSubmenu(),
       'dosen' => $this->menu->getDosen(),
       'mhs' => $this->menu->getMhs(),
