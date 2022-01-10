@@ -7,6 +7,7 @@ class Proyekakhir extends CI_Controller
   {
     $this->load->model('User_model', 'user');
     $data = [
+      'title' => 'Proyek Akhir',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->user->getDosen(),
       'mhs' => $this->user->getMhs()
@@ -23,6 +24,7 @@ class Proyekakhir extends CI_Controller
   {
     $this->load->model('User_model', 'user');
     $data = [
+      'title' => 'Absensi PA',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->user->getDosen(),
       'mhs' => $this->user->getMhs()
@@ -39,6 +41,7 @@ class Proyekakhir extends CI_Controller
   {
     $this->load->model('User_model', 'user');
     $data = [
+      'title' => 'Koordinator Proyek Akhir',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->user->getDosen(),
       'mhs' => $this->user->getMhs()

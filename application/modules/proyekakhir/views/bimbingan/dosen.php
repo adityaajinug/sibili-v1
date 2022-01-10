@@ -26,7 +26,7 @@
                                     <td>1</td>
                                     <td>Adam Jhon</td>
                                     <td><span class="badge badge-pill badge-primary pr-5 pl-5 pt-2 pb-2"> BAB V </span></td>
-                                    <td>Ini Bab V</td>
+                                    <td>Ini Bab III</td>
                                     <td>
                                         <a href="http://" class="badge badge-pill badge-success pr-3 pl-3 pt-2 pb-2"> Edit </a>
                                         <a href="http://" class="badge badge-pill badge-warning pr-3 pl-3 pt-2 pb-2"> Konfirmasi </a>
