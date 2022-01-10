@@ -25,7 +25,7 @@
                     <td><?= $i['industry_name']; ?></td>
                     <td><?= $i['address']; ?></td>
                     <td>
-                      <a href="<?= $i['maps']; ?>" class="badge badge-pill badge-success py-2 px-3">Link</a>
+                      <a href="<?= $i['maps']; ?>" class="badge badge-pill badge-primary py-2 px-3">Link</a>
                     </td>
 
                   </tr>

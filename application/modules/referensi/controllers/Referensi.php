@@ -11,6 +11,7 @@ class Referensi extends CI_Controller
   public function file()
   {
     $data = [
+      'title' => 'File referensi',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->referensi->getDosen(),
       'mhs' => $this->referensi->getMhs(),
@@ -29,6 +30,7 @@ class Referensi extends CI_Controller
   public function video()
   {
     $data = [
+      'title' => 'video',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->referensi->getDosen(),
       'mhs' => $this->referensi->getMhs(),
