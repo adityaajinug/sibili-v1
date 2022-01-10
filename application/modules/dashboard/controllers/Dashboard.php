@@ -17,7 +17,6 @@ class Dashboard extends CI_Controller
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->dashboard->getDosen(),
       'mhs' => $this->dashboard->getMhs(),
-      'mhs_bimbingan' => $this->dashboard->getMhsBimbingan($id)
     ];
     if ($this->session->userdata('role_id') == 1) {
       $this->template->load('templates/templates', 'dashboard_views/admin', $data);

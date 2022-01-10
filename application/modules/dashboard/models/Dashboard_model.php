@@ -22,20 +22,4 @@ class Dashboard_model extends CI_Model
         $this->db->where('user.username=', $data);
         return $this->db->get()->row_array();
     }
-    public function getMhsBimbingan($id)
-    {
-        $data = [
-            'dosen_pembimbing.group' => $id,
-        ];
-        $this->db
-            ->select('user.username, mahasiswa.mhs_name, mahasiswa.email, mahasiswa.status')
-            ->from('dosen_pembimbing')
-            ->join('mhs_bimbingan', 'dosen_pembimbing.id_pembimbing = mhs_bimbingan.pembimbing_id')
-            ->join('mahasiswa', 'mahasiswa.id_mhs = mhs_bimbingan.mhs_id')
-            ->join('dosen', 'dosen.id_dosen = dosen_pembimbing.dosen_id')
-            ->join('user', 'user.id_user = dosen.user_id')
-            ->where($data)
-            ->where('mahasiswa.status=', 'aktif');
-        return $this->db->get()->result_array();
-    }
 }
