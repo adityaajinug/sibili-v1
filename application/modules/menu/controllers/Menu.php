@@ -3,11 +3,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Menu extends CI_Controller
 {
+  public function __construct()
+  {
+    parent::__construct();
+    $this->load->model('Menu_model', 'menu');
+  }
   public function index()
   {
     $data = [
       'menu' => $this->db->get('user_menu')->result_array(),
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+      'dosen' => $this->menu->getDosen(),
+      'mhs' => $this->menu->getMhs(),
+
+
     ];
     $this->template->load('templates/templates', 'menu_view/index', $data);
   }
@@ -25,10 +34,14 @@ class Menu extends CI_Controller
   }
   public function submenu()
   {
-    $this->load->model('Menu_model', 'menu');
+
     $data = [
       'menu' => $this->db->get('user_menu')->result_array(),
-      'submenu' => $this->menu->getSubmenu()
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+      'submenu' => $this->menu->getSubmenu(),
+      'dosen' => $this->menu->getDosen(),
+      'mhs' => $this->menu->getMhs(),
+
     ];
     $this->template->load('templates/templates', 'submenu/index', $data);
   }

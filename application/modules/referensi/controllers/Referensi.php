@@ -38,6 +38,7 @@ class Referensi extends CI_Controller
   public function industri()
   {
     $data = [
+      'title' => 'Data Industri',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->referensi->getDosen(),
       'mhs' => $this->referensi->getMhs(),

@@ -12,6 +12,7 @@
                   <th class="th-sm">No</th>
                   <th class="th-sm">Nama Industri</th>
                   <th class="th-sm">Alamat Indusri</th>
+                  <th class="th-sm">Maps</th>
 
                 </tr>
               </thead>
@@ -23,6 +24,9 @@
                     <td><?= $no++; ?></td>
                     <td><?= $i['industry_name']; ?></td>
                     <td><?= $i['address']; ?></td>
+                    <td>
+                      <a href="<?= $i['maps']; ?>" class="badge badge-pill badge-success py-2 px-3">Link</a>
+                    </td>
 
                   </tr>
 
@@ -36,3 +40,4 @@
     </div>
 
   </div>
+</div>

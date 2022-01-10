@@ -15,7 +15,7 @@ class Proyekakhir extends CI_Controller
       $this->template->load('templates/templates', 'bimbingan/dosen', $data);
     } else if ($this->session->userdata('role_id') == 2) {
       $this->template->load('templates/templates', 'bimbingan/index', $data);
-    } else if ($this->session->userdata('role_id') == 3) {
+    } else {
       $this->template->load('templates/templates', 'bimbingan/dosen', $data);
     }
   }
@@ -31,7 +31,7 @@ class Proyekakhir extends CI_Controller
       $this->template->load('templates/templates', 'absensi/absen_dosen', $data);
     } else if ($this->session->userdata('role_id') == 2) {
       $this->template->load('templates/templates', 'absensi/absen_mhs', $data);
-    } else if ($this->session->userdata('role_id') == 3) {
+    } else {
       $this->template->load('templates/templates', 'absensi/absen_dosen', $data);
     }
   }

@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
             <div class="card card-data shadow-sm">
                 <div class="card-body body-data">
                     <div class="data-desc">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="col-md-6">
             <div class="card card-data shadow-sm">
@@ -83,3 +83,4 @@
 
 
     </div>
+</div>

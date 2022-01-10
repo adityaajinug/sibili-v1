@@ -6,7 +6,7 @@
           <div class="data-desc">
             <h5>Kuliah Kerja<br>Industri I</br></h5>
             <div class="btn-data">
-              <a href="<?= base_url('kki/laporan/detail') ?>" class="btn btn-blue">Detail</a>
+              <a href="<?= base_url('kki/laporan/kki_pertama') ?>" class="btn btn-blue">Detail</a>
             </div>
           </div>
           <div class="icon-data">
@@ -21,7 +21,7 @@
           <div class="data-desc">
             <h5>Kuliah Kerja<br>Industri II</br></h5>
             <div class="btn-data">
-              <a href="<?= base_url('kki/laporan/detail') ?>" class="btn btn-blue">Detail</a>
+              <a href="<?= base_url('kki/laporan/kki_dua') ?>" class="btn btn-blue">Detail</a>
             </div>
           </div>
           <div class="icon-data">
@@ -31,3 +31,4 @@
       </div>
     </div>
   </div>
+</div>

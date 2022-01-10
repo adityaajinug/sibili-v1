@@ -40,4 +40,5 @@
             </div>
         </div>
     </div>
-    <!-- order table -->
+</div>
+<!-- order table -->

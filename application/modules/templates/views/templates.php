@@ -10,7 +10,7 @@
   <meta name="author" content="">
   <!-- Favicon icon -->
   <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url() ?>/assets/vendor/images/logo-sibili.png">
-  <title>Sibili</title>
+  <title>Sibili - <?= $title; ?></title>
   <!-- Custom CSS -->
   <link href="<?= base_url() ?>/assets/vendor/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet" type="text/css">
   <link href="<?= base_url() ?>/assets/vendor/extra-libs/c3/c3.min.css" rel="stylesheet" type="text/css">
@@ -19,6 +19,7 @@
   <!-- Custom CSS -->
   <link href="<?= base_url() ?>/assets/dist/css/style.min.css" rel="stylesheet" type="text/css">
   <link href="<?= base_url() ?>/assets/dist/css/card.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 
 </head>
@@ -88,7 +89,7 @@
                   <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?></span> - <span class="text-dark">Sibili Administrator</span>
                   <?php } else if ($user['role_id'] == 2) { ?>
                     <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?> - </span> <span class="text-dark"><?= $mhs['mhs_name'] ?></span>
-                    <?php } else if ($user['role_id'] == 3) { ?>
+                    <?php } else { ?>
                       <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?> - </span> <span class="text-dark"><?= $dosen['dosen_name'] ?></span>
                       <?php } ?>
 
@@ -108,18 +109,21 @@
               </a>
 
               <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                <!-- <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
+                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user" class="svg-icon mr-2 ml-1"></i>
                   My Profile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings" class="svg-icon mr-2 ml-1"></i>
-                  Account Setting</a> -->
+                  Account Setting</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?= base_url('login/logout') ?>"><i data-feather="power" class="svg-icon mr-2 ml-1"></i>
                   Logout</a>
-                <!-- <div class="dropdown-divider"></div>
-                <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View
-                    Profile</a></div>
-              </div> -->
+                <div class="dropdown-divider"></div>
+                <div class="pl-4 p-3">
+                  <a href="<?= base_url('login/logout') ?>" class="btn btn-sm btn-info px-4 py-2" style="font-size:14px;border-radius: 10px;">
+                    <i data-feather="power" class="svg-icon mr-2"></i>
+                    Logout
+                  </a>
+                </div>
             </li>
 
           </ul>
@@ -191,11 +195,44 @@
       <div class="page-breadcrumb">
         <div class="row">
           <div class="col-7 align-self-center">
-            <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Selamat Pagi Aditya</h3>
+            <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">
+              <?php
+              //ubah timezone menjadi jakarta
+              date_default_timezone_set("Asia/Jakarta");
+
+              //ambil jam dan menit
+              $jam = date('H:i');
+
+              //atur salam menggunakan IF
+              if ($jam > '05:30' && $jam < '10:00') {
+                $salam = 'Pagi';
+              } elseif ($jam >= '10:00' && $jam < '15:00') {
+                $salam = 'Siang';
+              } elseif ($jam < '18:00') {
+                $salam = 'Sore';
+              } else {
+                $salam = 'Malam';
+              }
+
+              //tampilkan pesan
+              echo 'Selamat ' . $salam;
+
+              ?>
+              <?php if ($user['role_id'] == 1) {
+                echo $user['username'];
+              } else if ($user['role_id'] == 2) {
+                echo $mhs['mhs_name'];
+              } else {
+                echo $dosen['dosen_name'];
+              }
+
+
+              ?>
+            </h3>
             <div class="d-flex align-items-center">
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb m-0 p-0">
-                  <li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+                  <li class="breadcrumb-item"><a href="index.html"><?= $title; ?></a>
                   </li>
                 </ol>
               </nav>
@@ -204,7 +241,7 @@
           <div class="col-5 align-self-center">
             <div class="customize-input float-right">
               <div class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                <option>2 Okt 21</option>
+                <option><?php echo (date('d M y')); ?></option>
               </div>
             </div>
           </div>
@@ -213,11 +250,12 @@
 
       <?= $contents; ?>
 
-    </div>
-    <footer class="footer text-center text-muted d-flex justify-content-center">
-      All Rights Reserved by Sibili. Designed and Developed by <a href="https://www.instagram.com/adityaajinug/"> adityaajinug</a>.
-    </footer>
 
+
+      <footer class="footer text-center text-muted d-flex justify-content-center">
+        <p class="text-center">All Rights Reserved by DTI. Designed and Developed by <a href="https://www.instagram.com/adityaajinug/">adityaajinug</a></p>.
+      </footer>
+    </div>
   </div>
 
   <script src="<?= base_url() ?>/assets/vendor/libs/jquery/dist/jquery.min.js"></script>
@@ -230,7 +268,7 @@
   <script src="<?= base_url() ?>/assets/dist/js/sidebarmenu.js"></script>
 
   <script src="<?= base_url() ?>/assets/dist/js/custom.min.js"></script>
-  <script src="<?= base_url() ?>/assets/dist/js/chat.js"></script>
+
 
   <script src="<?= base_url() ?>/assets/vendor/extra-libs/c3/d3.min.js"></script>
   <script src="<?= base_url() ?>/assets/vendor/extra-libs/c3/c3.min.js"></script>
@@ -243,28 +281,29 @@
 
   <script src="<?= base_url() ?>/assets/vendor/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?= base_url() ?>/assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
-
-  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-  <script type="text/javascript">
-    document.addEventListener("adobe_dc_view_sdk.ready", function() {
-      var adobeDCView = new AdobeDC.View({
-        clientId: "89b471e6fc18483f977ce6fc688d66f3",
-        divId: "adobe-dc-view"
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('.js-example-basic-single').select2({
+        placeholder: 'Pilih Dosen',
+        width: 'resolve'
       });
-      adobeDCView.previewFile({
-        content: {
-          location: {
-            url: "<?= base_url('assets/file/laporan/' . $user_chat['file']) ?>"
-          }
-        },
-        metaData: {
-          fileName: "<?= $user_chat['file'] ?>"
-        }
-      }, {});
+    });
+    $(document).ready(function() {
+      $('.js-choose').select2({
+        placeholder: 'Pilih BAB',
+        width: 'resolve'
+      });
+    });
+    $(document).ready(function() {
+      $('.js-example-basic-multiple').select2({
+        placeholder: 'Pilih Mahasiswa',
+        width: 'resolve'
+      });
     });
   </script>
-  <script>
+
+  <!-- <script>
     const btnDropdown = document.getElementById('btn-dropdown');
     const content = document.getElementById('dropdown-btn');
     btnDropdown.onclick = function() {
@@ -279,7 +318,42 @@
 
 
     }
+  </script> -->
+  <script>
+    $(document).ready(function() {
+      $(".typing").submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: '<?= base_url('kki/laporan/input_chat') ?>',
+          type: 'post',
+          data: $(this).serialize(),
+          success: function(data) {
+            document.getElementById("type").reset();
+
+          }
+        });
+      });
+    })
   </script>
+  <!-- <script>
+    function postMessage() {
+      const request = new Request("<?= base_url() ?>kki/laporan/input_chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          outgoing_chat_id: document.getElementById("outgoing_chat_id").value,
+          incoming_chat_id: document.getElementById("incoming_chat_id").value,
+          input_message: document.getElementById("input_message").value,
+          bab_id: document.getElementById("bab_id").value,
+          pembimbing_id: document.getElementById("pembimbing_id").value,
+        })
+      });
+    }
+    document.getElementById("send").onclick = postMessage;
+  </script> -->
   <script>
     $('.cek').on('click', function() {
       const menu_id = $(this).data('menu');
@@ -334,25 +408,28 @@
 
       });
     }
-
-    // function getUserStatus() {
-    //   jQuery.ajax({
-    //     url: "<?= base_url('kki/laporan/get_status') ?>",
-    //     success: function(result) {
-    //       jQuery('#user_st').html(result)
-    //     }
-
-    //   });
-    // }
     setInterval(function() {
       updateUserStatus()
 
-    }, 500)
-    // setInterval(function() {
-    //   getUserStatus()
+    }, 1000)
 
-    // }, 7000);
+    function getChat() {
+      jQuery.ajax({
+        url: "<?= base_url('kki/laporan/getChat') ?>",
+        method: 'GET',
+        success: function(result) {
+          jQuery('#chatting').html(result)
+        }
+
+      });
+    }
+
+    setInterval(function() {
+      getChat()
+
+    }, 2000);
   </script>
+
 </body>
 
 </html>

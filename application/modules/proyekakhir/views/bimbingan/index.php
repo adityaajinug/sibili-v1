@@ -84,6 +84,7 @@
     </div>
 
   </div>
+</div>
 
-  <!-- End Row -->
-  <!-- Row -->
+<!-- End Row -->
+<!-- Row -->

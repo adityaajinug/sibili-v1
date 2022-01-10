@@ -20,7 +20,7 @@
               <tbody>
                 <?php
                 $no = 1;
-                foreach ($bab as $i) : ?>
+                foreach ($allbab as $i) : ?>
                   <tr>
                     <td><?= $no++; ?></td>
                     <td><?= $i['name']; ?></td>
@@ -42,3 +42,4 @@
     </div>
 
   </div>
+</div>

@@ -8,7 +8,7 @@
 
 
           <div class="d-flex align-items-center mb-4">
-            <h4 class="card-title">Detail Kelompok <span class="text-primary"><?= $kelompok['code'] ?></span>
+            <h4 class="card-title">Detail Kelompok <span class="text-primary"><?= $kelompok['group'] ?></span>
             </h4>
           </div>
           <div class="card-text">
@@ -65,3 +65,4 @@
       </div>
     </div>
   </div>
+</div>
