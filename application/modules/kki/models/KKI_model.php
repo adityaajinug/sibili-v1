@@ -188,21 +188,29 @@ class KKI_model extends CI_Model
     $this->db
       ->select('*')
       ->from('chats')
+      // ->where('outgoing_chat_id', $outgoing_chat_id)
+      // ->where('incoming_chat_id', $incoming_chat_id)
       ->where('bab_id', $id)
       ->where('pembimbing_id', $group);
     return $this->db->get()->result();
   }
-  public function chatMessage($outgoing_chat_id, $incoming_chat_id, $id, $group)
+  public function chatMessage($outgoing_chat_id, $incoming_chat_id, $bab_id, $pembimbing_id)
   {
-    $this->db
-      ->select('*')
-      ->from('chats')
-      ->where('outgoing_chat_id', $outgoing_chat_id)
-      ->where('incoming_chat_id', $incoming_chat_id)
-      ->where('bab_id', $id)
-      ->where('pembimbing_id', $group)
-      ->order_by('message', 'Desc');
+    $this->db->from('chats');
+    // $this->db->where('outgoing_chat_id= ' . $outgoing_chat_id . ' 
+    // and incoming_chat_id=' . $incoming_chat_id . ' 
+    // or outgoing_chat_id= ' . $incoming_chat_id . ' 
+    // and incoming_chat_id=' . $outgoing_chat_id);
+    $this->db->where('outgoing_chat_id', $outgoing_chat_id);
+    $this->db->where('incoming_chat_id', $incoming_chat_id);
+    // 
+    $this->db->where('bab_id', $bab_id);
+    $this->db->where('pembimbing_id', $pembimbing_id);
+    // $this->db->or_where('outgoing_chat_id', $incoming_chat_id);
+    // $this->db->or_where('incoming_chat_id', $outgoing_chat_id);
 
-    return $this->db->get()->result();
+    $r = $this->db->get();
+
+    return $r->result();
   }
 }

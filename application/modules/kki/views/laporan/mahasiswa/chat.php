@@ -49,6 +49,26 @@
           <div class="body-box">
             <div class="chat-box" id="chatting">
 
+              <div class="chat-right">
+                <div class="message">
+                  <p id="right">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas beatae animi quas.</p>
+                </div>
+                <div class="chat-time">
+                  <p>12.30 am</p>
+                </div>
+              </div>
+              <div class="chat-left">
+                <div class="message">
+                  <p id="left">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus ab aliquam cupiditate illo?</p>
+                </div>
+                <div class="chat-time">
+                  <p>11.30 am</p>
+                </div>
+              </div>
+
+
+
+
             </div>
           </div>
           <div class="typing-message">
@@ -71,18 +91,6 @@
     </div>
   <?php } ?>
 </div>
-<!-- <script src="<?= base_url() ?>/assets/dist/js/chat.js"></script> -->
-<!-- <script>
-  $(document).ready(function() {
-    $.ajax({
-      url: '<?= base_url('kki/laporan/getChat') ?>',
-      success: function(html) {
-        $("#chatting").html(html);
-      }
-
-    })
-  })
-</script> -->
 
 <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
 <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
@@ -103,4 +111,76 @@
       }
     }, {});
   });
+</script>
+
+
+<script>
+  $(document).ready(function() {
+    message()
+
+    function message() {
+      let incoming_chat_id = '<?= $user_chat['id_user'] ?>';
+      let bab_id = '<?= $user_chat['bab_id'] ?>';
+      let pembimbing_id = '<?= $user_chat['group'] ?>';
+
+      $.ajax({
+        type: "get",
+        url: "<?= base_url() ?>kki/api_chat/chat_load",
+        data: {
+          outgoing_chat_id: '<?= $user['id_user'] ?>',
+          incoming_chat_id: incoming_chat_id,
+          bab_id: bab_id,
+          pembimbing_id: pembimbing_id,
+        },
+        dataType: "json",
+        success: function(e) {
+
+          const chatContent = document.getElementById("chatting");
+
+          const data = e.chat;
+          chatContent.innerHTML = data.map(d => {
+            return `<div class="chat-${d.sender?'right': 'left'}">
+                <div class="message">
+                  <p id="right">${d.message}</p>
+                </div>
+                <div class="chat-time">
+                  <p> ${d.time}</p>
+                </div>
+              </div>`
+
+          }).join('')
+
+        },
+
+
+      })
+
+    }
+    setInterval(() => {
+      message()
+
+    }, 1000);
+
+    $(".typing").submit(function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: '<?= base_url('kki/laporan/input_chat') ?>',
+        type: 'post',
+        data: $(this).serialize(),
+        success: function(data) {
+          document.getElementById("type").reset();
+          scrollToBottom()
+
+        }
+      });
+    });
+    scrollToBottom()
+
+    function scrollToBottom() {
+      $("#chatting").animate({
+        scrollTop: 200000000000000000000000000000000
+      }, "slow");
+    }
+
+  })
 </script>

@@ -52,8 +52,11 @@ class Laporan extends CI_Controller
 
   public function detail_bab()
   {
+    date_default_timezone_set('Asia/Jakarta');
     $id = $this->uri->segment(4);
     $group = $this->uri->segment(5);
+
+
     $data = [
       'title' => 'Kuliah Kerja Industri / Bab / Detail',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
@@ -62,9 +65,9 @@ class Laporan extends CI_Controller
       'bab_mhs' => $this->kki->getBabMhsPertama($id),
       'user_chat' => $this->kki->getUserChat($id, $group),
       'laporan' => $this->kki->getLaporanPertama($id, $group),
-      'chat' => $this->kki->getChat($id, $group),
-
+      'cc' => $this->kki->getChat($id, $group)
     ];
+
 
     if ($this->session->userdata('role_id') == 1) {
       $this->template->load('templates/templates', 'laporan/admin/index', $data);
@@ -75,6 +78,20 @@ class Laporan extends CI_Controller
     } else {
       $this->template->load('templates/templates', 'laporan/dosen/data_bab', $data);
     }
+  }
+  public function api_chat()
+  {
+    $outgoing_chat_id = $this->input->get('outgoing_chat_id');
+    $incoming_chat_id = $this->input->get('incoming_chat_id');
+    $bab_id = $this->input->get('bab_id');
+    $pembimbing_id = $this->input->get('pembimbing_id');
+    var_dump($outgoing_chat_id);
+    $chat = $this->kki->chatMessage();
+    echo json_encode(
+      array(
+        'chat' => $chat
+      )
+    );
   }
   public function update_status()
   {
@@ -132,52 +149,12 @@ class Laporan extends CI_Controller
       }
     }
   }
-  public function getChat()
-  {
-    if ($this->session->userdata('username')) {
-      $outgoing_chat_id = $this->input->post('outgoing_chat_id');
-      $incoming_chat_id = $this->input->post('incoming_chat_id');
-      $id = $this->input->post('bab_id');
-      $group = $this->input->post('pembimbing_id');
-      $output = '';
-      $chat = $this->kki->chatMessage($outgoing_chat_id, $incoming_chat_id, $id, $group);
-      var_dump($chat);
-
-      foreach ($chat as $c) {
-        if ($c['outgoing_chat_id'] === $outgoing_chat_id) {
-          $output .= '<div class="chat-right">
-          <div class="message">
-            <p id="right">' . $c->message . '</p>
-          </div>
-          <div class="chat-time">
-            <p>' . date_default_timezone_set('Asia/Jakarta');
-          date('d m Y - H:i a', $c->time)
-
-            . '</p>
-          </div>
-        </div>';
-        } else {
-          $output .= '<div class="chat-left">
-          <div class="message">
-            <p id="left">' . $c->message . '</p>
-          </div>
-          <div class="chat-time">
-            <p>' . date_default_timezone_set('Asia/Jakarta');
-          date('d m Y - H:i a', $c->time)
-
-            . '</p>
-          </div>
-        </div>';
-        }
-      }
-      echo $output;
-    }
-  }
 
   public function bab_detail()
   {
     $file = $this->uri->segment(6);
     $data = [
+      'title' => 'Bab Detail',
       'kki' => 'Kuliah Kerja Industri / Bab / Detail',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->kki->getDosen(),
