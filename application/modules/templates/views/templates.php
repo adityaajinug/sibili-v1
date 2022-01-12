@@ -21,6 +21,11 @@
   <link href="<?= base_url() ?>/assets/dist/css/card.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+  <script src="<?= base_url() ?>/assets/vendor/libs/jquery/dist/jquery.min.js"></script>
+  <script src="<?= base_url() ?>/assets/vendor/libs/popper.js/dist/umd/popper.min.js"></script>
+  <script src="<?= base_url() ?>/assets/vendor/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
 
 </head>
 
@@ -257,11 +262,6 @@
       </footer>
     </div>
   </div>
-
-  <script src="<?= base_url() ?>/assets/vendor/libs/jquery/dist/jquery.min.js"></script>
-  <script src="<?= base_url() ?>/assets/vendor/libs/popper.js/dist/umd/popper.min.js"></script>
-  <script src="<?= base_url() ?>/assets/vendor/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-
   <script src="<?= base_url() ?>/assets/dist/js/app-style-switcher.js"></script>
   <script src="<?= base_url() ?>/assets/dist/js/feather.min.js"></script>
   <script src="<?= base_url() ?>/assets/vendor/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
@@ -279,9 +279,11 @@
   <script src="<?= base_url() ?>/assets/dist/js/pages/dashboards/dashboard1.min.js"></script>
 
 
+
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
   <script src="<?= base_url() ?>/assets/vendor/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?= base_url() ?>/assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
     $(document).ready(function() {
       $('.js-example-basic-single').select2({
@@ -319,22 +321,7 @@
 
     }
   </script> -->
-  <script>
-    $(document).ready(function() {
-      $(".typing").submit(function(e) {
-        e.preventDefault();
-        $.ajax({
-          url: '<?= base_url('kki/laporan/input_chat') ?>',
-          type: 'post',
-          data: $(this).serialize(),
-          success: function(data) {
-            document.getElementById("type").reset();
 
-          }
-        });
-      });
-    })
-  </script>
   <!-- <script>
     function postMessage() {
       const request = new Request("<?= base_url() ?>kki/laporan/input_chat", {
@@ -398,7 +385,7 @@
     });
   </script>
 
-  <script>
+  <!-- <script>
     function updateUserStatus() {
       jQuery.ajax({
         url: "<?= base_url('kki/laporan/update_status') ?>",
@@ -411,24 +398,30 @@
     setInterval(function() {
       updateUserStatus()
 
-    }, 1000)
+    }, 1000);
+  </script> -->
+  <!-- <script>
+    $(document).ready(function() {
+      message()
 
-    function getChat() {
-      jQuery.ajax({
-        url: "<?= base_url('kki/laporan/getChat') ?>",
-        method: 'GET',
-        success: function(result) {
-          jQuery('#chatting').html(result)
-        }
+      function message() {
+        let incoming_chat_id = '<?= $user_chat['id_user'] ?>'
 
-      });
-    }
+        $.ajax({
+          type: "post",
+          url: "<?= base_url() ?>api_chat/chat_load",
+          data: {
+            outgoing_chat_id: '<?= $user['id_user'] ?>',
+            incoming_chat_id: incoming_chat_id
+          },
+          dataType: "json",
+        })
 
-    setInterval(function() {
-      getChat()
+      }
 
-    }, 2000);
-  </script>
+    })
+  </script> -->
+
 
 </body>
 
