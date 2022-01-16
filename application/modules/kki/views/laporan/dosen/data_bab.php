@@ -26,7 +26,7 @@
                   <tr>
                     <td><?= $no++; ?></td>
                     <td><?= $l['mhs_name'] ?></td>
-                    <td><span class="badge badge-pill badge-secondary pr-5 pl-5 pt-2 pb-2"> <?= $l['name'] ?></span></td>
+                    <td><span class="badge badge-pill badge-primary pr-5 pl-5 pt-2 pb-2"> <?= $l['name'] ?></span></td>
 
                     <td>
                       <a href="<?= base_url('kki/laporan/bab_detail/' . $l['bab_dosen_id'] . '/' . $l['group'] . '/' . $l['file']) ?>" class="badge badge-pill badge-success pr-3 pl-3 pt-2 pb-2"> Detail </a>

@@ -36,7 +36,6 @@ class Laporan extends CI_Controller
       'mhs' => $this->kki->getMhs(),
       'allbabkki' => $this->kki->allBabKki(),
       'bab' => $this->kki->getBab(),
-      'param' => $this->kki->paramBab1(),
       'pembimbing' => $this->kki->pembimbingId(),
       'babDosen' => $this->kki->getBabDosen(),
       'allBabDosen' => $this->kki->getAllBabDosen(),

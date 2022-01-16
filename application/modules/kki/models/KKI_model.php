@@ -109,25 +109,11 @@ class KKI_model extends CI_Model
       ->from('bab_dosen')
       ->join('bab', 'bab_dosen.bab_id = bab.status_bab')
       ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = bab_dosen.pembimbing_id')
-      ->order_by('bab.id_bab', 'ASC');
+      ->order_by('bab_dosen.bab_id', 'ASC');
 
     return $this->db->get()->result_array();;
   }
-  public function paramBab1()
-  {
-    $data = $this->session->userdata('username');
-    $this->db->select('bab.id_bab, bab.name, bab.description, dosen_pembimbing.group')
-      ->from('bab')
-      ->join('file_laporan', 'file_laporan.bab_id = bab.id_bab')
-      ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = file_laporan.pembimbing_id')
-      ->join('dosen', 'dosen.id_dosen = dosen_pembimbing.dosen_id')
-      ->join('user', 'user.id_user = dosen.user_id')
-      ->where('user.username=', $data)
-      ->group_by(array('bab.id_bab', 'bab.name', 'bab.description', 'dosen_pembimbing.group'))
-      ->order_by('bab.id_bab', 'ASC');
 
-    return $this->db->get()->result_array();
-  }
   public function getBimbingan()
   {
     $data = $this->session->userdata('username');
