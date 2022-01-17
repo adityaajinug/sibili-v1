@@ -79,19 +79,12 @@
                         <select class="js-example-basic-single form-control" name="dosen_id" style="width:100%;font-size:18px">
                             <?php foreach ($allDosen as $d) : ?>
                                 <option value="<?= $d['id_dosen'] ?>"><?= $d['dosen_name'] ?></option>
+
                             <?php endforeach; ?>
+
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="mahasiswa">Mahasiswa</label>
-                        <select class="js-example-basic-multiple js-stetes form-control" name="mhs_id[]" multiple="multiple" style="width:100%;font-size:18px">
-                            <?php
-                            $no = 1;
-                            foreach ($allMhs as $m) : ?>
-                                <option value="<?= $m['id_mhs'] ?>"><?= $no++; ?>. <?= $m['username'] ?> - <?= $m['mhs_name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+
 
                     <div class="form-group text-center">
                         <button class="btn btn-rounded btn-primary" type="submit">Simpan</button>

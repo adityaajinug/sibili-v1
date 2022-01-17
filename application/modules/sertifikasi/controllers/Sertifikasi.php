@@ -33,7 +33,8 @@ class Sertifikasi extends CI_Controller
   {
     $data = [
       'limit_end' => $this->input->post('limit_end'),
-      'category_form' => $this->input->post('category_form')
+      'category_form' => $this->input->post('category_form'),
+      'user_id' => $this->input->post('user_id'),
     ];
     $this->db->insert('form_upload', $data);
     redirect('sertifikasi/form_submit');
@@ -51,11 +52,25 @@ class Sertifikasi extends CI_Controller
   }
   public function kelompok()
   {
+    date_default_timezone_set('Asia/Jakarta');
+    // $kode = $this->kki->getAllDosen();
+
+    // foreach ($kode as $k) {
+    //   echo  $k['username'];
+    // }
+    $awal = 'DTI';
+
+    $clock = date('s');
+    // $year = date('Y');
+    $minute = date('i');
+    // $end = substr($year, 2, 2);
+    $noSekarang = $awal . $clock . $minute;
     $data = [
       'title' => 'Koordinator Sertifikasi',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->sertifikasi->getDosen(),
       'mhs' => $this->sertifikasi->getMhs(),
+      'kode' => $noSekarang,
       'pembimbing' => $this->sertifikasi->getPembimbing(),
       'allDosen' => $this->sertifikasi->getAllDosen(),
       'code' => $this->sertifikasi->getDosenCode(),

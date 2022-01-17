@@ -49,6 +49,7 @@
   <?= $this->session->flashdata('pesan'); ?>
   <a href="#" data-toggle="modal" data-target="#tambah-file" class="btn btn-primary mb-2 shadow mb-3" style="border-radius: 10px;">Upload File</a>
 
+  <input type="hidden" value="<?= $pembimbing['id_pembimbing'] ?>">
   <div class="row">
 
     <?php foreach ($bimbingan as $b) : ?>
@@ -88,18 +89,18 @@
           <p style="font-size: 24px;color:black;font-weight:500">Upload File</p>
         </div>
 
-        <form action="<?= base_url('kki/laporan/tambah_file_kki1') ?>" method="POST" class="pl-3 pr-3" enctype="multipart/form-data">
+        <form action="<?= base_url('kki/laporan/tambah_file_kki') ?>" method="POST" class="pl-3 pr-3" enctype="multipart/form-data">
 
           <div class="form-group">
             <label for="bab">Jenis File</label>
             <select class="js-choose form-control" name="bab_id" style="width:100%;font-size:18px">
               <?php foreach ($allBabDosen as $j) : ?>
-                <option value="<?= $j['bab_id'] ?>"><?= $j['name'] ?></option>
+                <option value="<?= $j['bab_id'] ?>"><?= $j['name'] ?> <?= $j['pembimbing_id'] ?></option>
               <?php endforeach; ?>
             </select>
           </div>
           <input type="hidden" name="user_id" id="" value="<?= $user['id_user'] ?>">
-          <input type="hidden" name="pembimbing_id" id="" value="<?= $pembimbing['id_pembimbing'] ?>">
+          <input type="hidden" name="pembimbing_id" value="<?= $pembimbing['id_pembimbing'] ?>">
           <div class="form-group">
             <label for="filedfd">File</label>
             <input class="form-control" type="file" id="filedfd" name="file">

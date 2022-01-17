@@ -11,6 +11,7 @@ class Menu extends CI_Controller
   public function index()
   {
     $data = [
+      'title' => 'Menu',
       'menu' => $this->db->get('user_menu')->result_array(),
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->menu->getDosen(),
@@ -36,6 +37,7 @@ class Menu extends CI_Controller
   {
 
     $data = [
+      'title' => 'Sub Menu',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'menu' => $this->db->get('user_menu')->result_array(),
       'submenu' => $this->menu->getSubmenu(),

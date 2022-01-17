@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="accordion" id="accordionExample">
 
-        <div class="card">
+        <div class="card shadow-lg" style="border-radius:10px;">
 
 
           <div class="card-body">

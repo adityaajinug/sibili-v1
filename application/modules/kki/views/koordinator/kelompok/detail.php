@@ -8,12 +8,17 @@
 
 
           <div class="d-flex align-items-center mb-4">
-            <h4 class="card-title">Detail Kelompok <span class="text-primary"><?= $kelompok['group'] ?></span>
+            <h4 class="card-title">Detail Kelompok <span class="text-primary"><?= $pembimbing['group'] ?></span>
             </h4>
+            <div class="ml-auto mt-3">
+              <a href="#" data-toggle="modal" data-target="#tambah-bimbingan" class="btn btn-primary mb-4 shadow" style="border-radius: 10px;">Tambah</a>
+              <a href="#" data-toggle="modal" data-target="#edit-bimbingan" class="btn btn-success mb-4 shadow" style="border-radius: 10px;">Edit</a>
+            </div>
           </div>
           <div class="card-text">
-            <p class="font-weight-bold">Dosen Pembimbing : <?= $kelompok['dosen_name'] ?></p>
+            <p class="font-weight-bold">Dosen Pembimbing : <?= $pembimbing['dosen_name'] ?></p>
           </div>
+
 
           <div class="table-responsive">
             <table class="table no-wrap v-middle mb-0">
@@ -31,10 +36,10 @@
               </thead>
               <tbody>
                 <?php
-                if ($detail === 0) { ?>
+                if ($detail == null) { ?>
 
                   <tr>
-                    <td colspan="3" class="border-top-0 text-muted px-2 py-4 font-16">Data Kosong</td>
+                    <td colspan="3" class="text-center border-top-0 text-muted px-2 py-4 font-24 fw-bold">Data Kosong</td>
                   </tr>
                   <?php
                 } else {
@@ -50,7 +55,7 @@
                         </div>
                       </td>
                       <td class="border-top-0 text-muted px-2 py-4 font-16"><?= $d['username']; ?></td>
-                      <td class="border-top-0 text-muted px-2 py-4 font-16"><?= $d['status']; ?></td>
+                      <td class="border-top-0 text-muted px-2 py-4 font-16"><?= $d['status_mhs']; ?></td>
 
                     </tr>
 
@@ -62,6 +67,93 @@
             </table>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="tambah-bimbingan" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 10px;">
+      <div class="modal-body">
+        <div class="text-center mt-2 mb-4">
+          <p style="font-size: 24px;color:black;font-weight:500">Tambah Mahasiswa Bimbingan</p>
+        </div>
+
+        <form action="<?= base_url('kki/tambah_kelompok') ?>" method="POST" class="pl-3 pr-3">
+
+          <div class="form-group">
+            <label for="kelompok">Kelompok</label>
+            <input class="form-control" type="text" name="group" id="kelompok" value="<?= $pembimbing['group']; ?>" readonly>
+          </div>
+          <div class="form-group">
+            <label for="dosen">Dosen</label>
+            <input class="form-control" type="text" name="dosen_name" id="kelompok" value="<?= $pembimbing['dosen_name']; ?>" readonly>
+            <input class="form-control" type="hidden" name="pembimbing_id" id="kelompok" value="<?= $pembimbing['id_pembimbing']; ?>" readonly>
+          </div>
+          <div class="form-group">
+            <label for="mahasiswa">Mahasiswa</label>
+            <select class="js-example-basic-multiple js-stetes form-control" name="mhs_id[]" multiple="multiple" style="width:100%;font-size:18px">
+
+
+              <?php
+              $no = 1;
+
+
+              foreach ($allMhs as $m) :
+              ?>
+                <option value="<?= $m['id_mhs'] ?>"><?= $no++; ?>. <?= $m['username'] ?> - <?= $m['mhs_name'] ?></option>
+              <?php
+              endforeach;
+              ?>
+            </select>
+          </div>
+
+          <div class="form-group text-center">
+            <button class="btn btn-rounded btn-primary" type="submit">Simpan</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div id="edit-bimbingan" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 10px;">
+      <div class="modal-body">
+        <div class="text-center mt-2 mb-4">
+          <p style="font-size: 24px;color:black;font-weight:500">Edit Kelompok Bimbingan</p>
+        </div>
+
+        <form action="<?= base_url('sertifikasi/tambah_kelompok') ?>" method="POST" class="pl-3 pr-3">
+
+          <div class="form-group">
+            <label for="kelompok">Kelompok</label>
+            <input class="form-control" type="text" name="group" id="kelompok" value="<?= $pembimbing['group']; ?>" readonly>
+          </div>
+          <div class="form-group">
+            <label for="dosen">Dosen</label>
+            <input class="form-control" type="text" name="group" id="kelompok" value="<?= $pembimbing['dosen_name']; ?>" readonly>
+
+          </div>
+          <div class="form-group">
+            <label for="mahasiswa">Mahasiswa</label>
+            <select class="js-example-basic-multiple js-stetes form-control" name="mhs_id[]" multiple="multiple" style="width:100%;font-size:18px">
+              <?php
+              $no = 1;
+              foreach ($allMhs as $m) : ?>
+                <option value="<?= $m['id_mhs'] ?>"><?= $no++; ?>. <?= $m['username'] ?> - <?= $m['mhs_name'] ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+
+          <div class="form-group text-center">
+            <button class="btn btn-rounded btn-primary" type="submit">Simpan</button>
+          </div>
+
+        </form>
+
       </div>
     </div>
   </div>

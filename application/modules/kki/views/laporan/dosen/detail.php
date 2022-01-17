@@ -37,7 +37,7 @@
             </select>
           </div>
           <input type="hidden" name="user_id" id="" value="<?= $user['id_user'] ?>">
-          <input type="hidden" name="pembimbing_id" id="" value="<?= $pembimbing['id_pembimbing'] ?>">
+          <input type="hidden" name="pembimbing_id" value=" <?= $pembimbing['id_pembimbing'] ?>">
 
           <div class="form-group text-center">
             <button class="btn btn-rounded btn-primary" type="submit">Simpan</button>

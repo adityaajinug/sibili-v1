@@ -54,14 +54,14 @@ class KKI_model extends CI_Model
     ];
 
     $this->db
-      ->select('dosen_pembimbing.group, dosen.dosen_name, mahasiswa.mhs_name, mahasiswa.email, mahasiswa.status, user.username')
+      ->select('dosen_pembimbing.group, dosen.dosen_name, mahasiswa.mhs_name, mahasiswa.email, mahasiswa.status_mhs, user.username')
       ->from('mhs_bimbingan')
       ->join('mahasiswa', 'mahasiswa.id_mhs = mhs_bimbingan.mhs_id')
       ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = mhs_bimbingan.pembimbing_id')
       ->join('dosen', 'dosen.id_dosen = dosen_pembimbing.dosen_id')
       ->join('user', 'user.id_user = mahasiswa.user_id')
       ->where($data)
-      ->where('mahasiswa.status=', 'aktif');
+      ->where('mahasiswa.status_mhs=', 'aktif');
 
     return $this->db->get()->result_array();
   }
@@ -89,55 +89,85 @@ class KKI_model extends CI_Model
   }
   public function getBabDosen()
   {
-    $data = $this->session->userdata('username');
-    $this->db->select('bab_dosen.bab_id, bab.name, bab.description, dosen_pembimbing.group')
-      ->from('bab_dosen')
-      ->join('bab', 'bab_dosen.bab_id = bab.status_bab')
-      ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = bab_dosen.pembimbing_id')
-      ->join('user', 'user.id_user = bab_dosen.user_id')
-      ->join('mhs_bimbingan', 'mhs_bimbingan.pembimbing_id = dosen_pembimbing.id_pembimbing')
-      ->join('mahasiswa', 'mahasiswa.id_mhs = mhs_bimbingan.mhs_id')
-      ->where('user.username=', $data)
-      // ->group_by(array('bab.id_bab', 'bab_dosen.file', 'bab.name', 'bab.description', 'dosen_pembimbing.group'))
-      ->order_by('bab.id_bab', 'ASC');
 
-    return $this->db->get()->result_array();
+    if ($this->session->userdata('role_id') == 2) {
+      $this->db->select('bab_dosen.bab_id, bab.name, bab.description, dosen_pembimbing.group')
+        ->from('bab_dosen')
+        ->join('bab', 'bab_dosen.bab_id = bab.status_bab')
+        ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = bab_dosen.pembimbing_id')
+        ->join('user', 'user.id_user = bab_dosen.user_id')
+        ->join('mhs_bimbingan', 'mhs_bimbingan.pembimbing_id = dosen_pembimbing.id_pembimbing')
+        ->join('mahasiswa', 'mahasiswa.id_mhs = mhs_bimbingan.mhs_id')
+        ->order_by('bab.id_bab', 'ASC');
+
+      return $this->db->get()->result_array();
+    } else {
+      $data = $this->session->userdata('username');
+      $this->db->select('bab_dosen.bab_id, bab.name, bab.description, dosen_pembimbing.group')
+        ->from('bab_dosen')
+        ->join('bab', 'bab_dosen.bab_id = bab.status_bab')
+        ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = bab_dosen.pembimbing_id')
+        ->join('user', 'user.id_user = bab_dosen.user_id')
+        ->join('mhs_bimbingan', 'mhs_bimbingan.pembimbing_id = dosen_pembimbing.id_pembimbing')
+        ->join('mahasiswa', 'mahasiswa.id_mhs = mhs_bimbingan.mhs_id')
+        ->where('user.username=', $data)
+        ->order_by('bab.id_bab', 'ASC');
+      return $this->db->get()->result_array();
+    }
+
+
+    // ->group_by(array('bab.id_bab', 'bab.name', 'bab.description', 'dosen_pembimbing.group'))
+
   }
   public function getAllBabDosen()
   {
-    $this->db->select('bab_dosen.bab_id, bab.name, dosen_pembimbing.group')
-      ->from('bab_dosen')
-      ->join('bab', 'bab_dosen.bab_id = bab.status_bab')
+
+
+    $this->db
+      ->distinct('bab_dosen.pembimbing_id,bab_dosen.bab_id')
+      ->select('bab_dosen.bab_id, bab_dosen.id_bab_dosen, bab.name, dosen_pembimbing.group, bab_dosen.pembimbing_id')
+      ->from('bab')
+
+      ->join('bab_dosen', 'bab_dosen.bab_id = bab.status_bab')
       ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = bab_dosen.pembimbing_id')
+      ->join('user', 'bab_dosen.user_id = user.id_user')
+      // ->where('bab_dosen.pembimbing_id=', 6)
+      ->group_by(array('bab_dosen.bab_id', 'bab_dosen.id_bab_dosen', 'bab_dosen.bab_id', 'bab.name', 'bab.description', 'bab_dosen.pembimbing_id'))
+
       ->order_by('bab_dosen.bab_id', 'ASC');
 
-    return $this->db->get()->result_array();;
+    return $this->db->get()->result_array();
   }
 
   public function getBimbingan()
   {
     $data = $this->session->userdata('username');
     $this->db
-      ->select('bimbingan.file, dosen_pembimbing.group, bimbingan.bab_dosen_id, bab.name, bab.description, bimbingan.bab_dosen_id, bimbingan.status_konfirmasi')
+      ->select('bimbingan.file, dosen_pembimbing.group, bimbingan.bab_dosen_id, bab.name, bab.description, bimbingan.status_konfirmasi')
       ->from('bimbingan')
-      ->join('bab_dosen', 'bimbingan.bab_dosen_id = bab_dosen.bab_id')
+      ->join('bab_dosen', 'bimbingan.bab_dosen_id = bab_dosen.id_bab_dosen')
       ->join('bab', 'bab.status_bab = bab_dosen.bab_id')
       ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = bimbingan.pembimbing_id')
       ->join('user', 'bimbingan.user_id = user.id_user')
       ->where('bimbingan.category_bimbingan=', 1)
+      // ->group_by(array('bimbingan.file', 'dosen_pembimbing.group', 'bimbingan.bab_dosen_id,', 'bab.name', 'bab.description', 'bimbingan.status_konfirmasi'))
       ->where('user.username=', $data);
     return $this->db->get()->result_array();
   }
-  public function getBimbinganKoreksi($id)
+  public function getBimbinganKoreksi($id, $group)
   {
     $data = $this->session->userdata('username');
     $this->db
       ->select('bimbingan_koreksi.file, bimbingan_koreksi.bab_dosen_id')
       ->from('bimbingan_koreksi')
+
       ->join('bab_dosen', 'bimbingan_koreksi.bab_dosen_id = bab_dosen.bab_id')
+      ->join('dosen_pembimbing', 'bimbingan_koreksi.pembimbing_id = dosen_pembimbing.id_pembimbing')
+      ->join('mhs_bimbingan', 'mhs_bimbingan.pembimbing_id = dosen_pembimbing.id_pembimbing')
       ->join('user', 'bimbingan_koreksi.user_id = user.id_user')
       // ->where('bimbingan_koreksi.file=', $file)
       ->where('bimbingan_koreksi.bab_dosen_id=', $id)
+      ->where('dosen_pembimbing.group=', $group)
       ->where('bimbingan_koreksi.category_bimbingan_koreksi=', 1);
     // ->where('user.username=', $data);
 
@@ -152,9 +182,10 @@ class KKI_model extends CI_Model
     $this->db->select('mahasiswa.id_mhs,mahasiswa.mhs_name, user.username')
       ->from('mahasiswa')
       ->join('user', 'user.id_user=mahasiswa.user_id')
-      ->where('mahasiswa.status=', 'aktif');
+      ->where('mahasiswa.status_mhs=', 'aktif');
     return $this->db->get()->result_array();
   }
+
 
   public function getBabDetail($file)
   {
@@ -203,7 +234,7 @@ class KKI_model extends CI_Model
       ->from('bimbingan')
       ->join('user', 'bimbingan.user_id = user.id_user')
       ->join('mahasiswa', 'mahasiswa.user_id = user.id_user')
-      ->join('bab_dosen', 'bab_dosen.bab_id = bimbingan.bab_dosen_id')
+      ->join('bab_dosen', 'bimbingan.bab_dosen_id = bab_dosen.id_bab_dosen')
       ->join('bab', 'bab.status_bab = bab_dosen.bab_id')
       ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = bimbingan.pembimbing_id')
       ->join('dosen', 'dosen.id_dosen = dosen_pembimbing.dosen_id')
@@ -214,9 +245,9 @@ class KKI_model extends CI_Model
   }
   public function pembimbingId()
   {
-    $data = $this->session->userdata('username');
-    if ($this->session->userdata('role_id') == 2) {
 
+    if ($this->session->userdata('role_id') == 2) {
+      $data = $this->session->userdata('username');
       $this->db
         ->select('dosen_pembimbing.id_pembimbing, mahasiswa.mhs_name')
         ->from('dosen_pembimbing')
@@ -226,14 +257,14 @@ class KKI_model extends CI_Model
         ->where('user.username=', $data);
       return $this->db->get()->row_array();
     } else {
-
+      $data = $this->session->userdata('id_user');
       $this->db
         ->select('dosen_pembimbing.id_pembimbing')
         ->from('dosen_pembimbing')
         ->join('mhs_bimbingan', 'mhs_bimbingan.pembimbing_id = dosen_pembimbing.id_pembimbing')
         ->join('dosen', 'dosen_pembimbing.dosen_id = dosen.id_dosen')
         ->join('user', 'user.id_user = dosen.user_id')
-        ->where('user.username=', $data);
+        ->where('user.id_user=', $data);
 
       return $this->db->get()->row_array();
     }
@@ -251,5 +282,70 @@ class KKI_model extends CI_Model
     $r = $this->db->get();
 
     return $r->result();
+  }
+  public function getForm()
+  {
+    // $data = $this->session->userdata('id_user');
+    $this->db
+      ->select('form_upload.*')
+      ->from('form_upload')
+      ->join('user', 'form_upload.user_id = user.id_user')
+      ->where('category_form=', 1)
+      ->or_where('category_form=', 2)
+      ->or_where('category_form=', 3)
+      ->or_where('category_form=', 4)
+      // ->where('user.id_user=', $data)
+      ->order_by('form_upload.id_form', 'Desc');
+
+    return $this->db->get()->result_array();
+  }
+  public function getPembimbingId($id)
+  {
+
+    $data = [
+      'dosen_pembimbing.group' => $id,
+    ];
+
+    $this->db
+      ->select('dosen_pembimbing.*, dosen.dosen_name')
+      ->from('dosen_pembimbing')
+      ->join('dosen', 'dosen.id_dosen = dosen_pembimbing.dosen_id')
+      ->where($data);
+
+    return $this->db->get()->row_array();
+  }
+  public function getFormUpload()
+  {
+    $this->db
+      ->select('form_upload.*')
+      ->from('form_upload')
+      ->join('user', 'form_upload.user_id = user.id_user')
+      ->limit('1')
+      ->where('category_form=', 1)
+      ->or_where('category_form=', 2)
+      ->order_by('form_upload.id_form', 'Desc');
+
+    return $this->db->get()->row_array();
+  }
+  public function getUpload()
+  {
+    $data = $this->session->userdata('username');
+    $this->db
+      ->select('upload.*, user.id_user')
+      ->from('upload')
+      ->join('user', 'upload.user_id = user.id_user')
+      ->where('category_upload=', 1)
+      ->or_where('category_upload=', 2)
+      ->where('user.username=', $data);
+    return $this->db->get()->row_array();
+  }
+  public function getUserDosen($id)
+  {
+    $this->db
+      ->select('dosen.id_dosen,dosen.dosen_name, user.username')
+      ->from('dosen')
+      ->join('user', 'dosen.user_id = user.id_user')
+      ->where('user.id_user=', $id);
+    return $this->db->get()->result_array();
   }
 }

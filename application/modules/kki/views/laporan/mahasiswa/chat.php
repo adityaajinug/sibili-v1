@@ -101,7 +101,7 @@
 <script type="text/javascript">
   document.addEventListener("adobe_dc_view_sdk.ready", function() {
     var adobeDCView = new AdobeDC.View({
-      clientId: "e9b9630a0936415881a08f207874da7b",
+      clientId: "89b471e6fc18483f977ce6fc688d66f3",
       divId: "adobe-dc-view"
     });
     adobeDCView.previewFile({

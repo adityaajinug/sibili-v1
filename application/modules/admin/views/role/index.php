@@ -1,47 +1,47 @@
 <div class="container-fluid">
+  <?= $this->session->flashdata('pesan'); ?>
   <div class="row">
-    <?= $this->session->flashdata('pesan'); ?>
+
+
     <div class="col-12">
-      <div class="accordion" id="accordionExample">
+      <a href="#" class="btn btn-primary mb-2 shadow mb-3" style="border-radius:10px;">Tambah </a>
 
-        <div class="card">
+      <div class="card shadow-lg" style="border-radius:10px;">
 
-          <div class="card-body">
+        <div class="card-body">
 
-            <button class="btn btn-primary mb-2">Tambah </button>
+          <div class="table-responsive">
+            <table id="zero_config" class="table table-striped table-bordered no-wrap">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Role</th>
+                  <th>Action</th>
 
-            <div class="table-responsive">
-              <table id="zero_config" class="table table-striped table-bordered no-wrap">
-                <thead>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $no = 1;
+                foreach ($role as $u) : ?>
                   <tr>
-                    <th>No</th>
-                    <th>Role</th>
-                    <th>Action</th>
+                    <td><?= $no++; ?></td>
+                    <td><?= $u['role'] ?></td>
 
+                    <td>
+                      <a href="<?= base_url('admin/roleAkses/' . $u['id']) ?>" class="badge badge-pill badge-warning py-2 px-3"> Menu</a>
+                      <a href="<?= base_url('admin/akses_sub/' . $u['id']) ?>" class="badge badge-pill badge-secondary py-2 px-3"> Sub Menu</a>
+                      <a href="http://" class="badge badge-pill badge-success py-2 px-3"> Edit</a>
+                      <a href="http://" class="badge badge-pill badge-danger py-2 px-3"> Hapus</a>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $no = 1;
-                  foreach ($role as $u) : ?>
-                    <tr>
-                      <td><?= $no++; ?></td>
-                      <td><?= $u['role'] ?></td>
+                <?php endforeach; ?>
 
-                      <td>
-                        <a href="<?= base_url('admin/roleAkses/' . $u['id']) ?>" class="badge badge-pill badge-warning"> Menu</a>
-                        <a href="<?= base_url('admin/akses_sub/' . $u['id']) ?>" class="badge badge-pill badge-secondary"> Sub Menu</a>
-                        <a href="http://" class="badge badge-pill badge-success"> Edit</a>
-                        <a href="http://" class="badge badge-pill badge-danger"> Hapus</a>
-                      </td>
-                    </tr>
-                  <?php endforeach; ?>
-
-              </table>
-            </div>
+            </table>
           </div>
         </div>
       </div>
     </div>
-    <!-- order table -->
   </div>
+  <!-- order table -->
+</div>

@@ -20,4 +20,34 @@ class Admin_model extends CI_Model
 
     return $this->db->query($query)->result_array();
   }
+  public function getAllDosen()
+  {
+    $this->db
+      ->select('dosen.*, user.*, user_role.*')
+      ->from('dosen')
+      ->join('user', 'user.id_user = dosen.user_id')
+      ->join('user_role', 'user_role.id = user.role_id');
+
+    return $this->db->get()->result_array();
+  }
+  public function getAllMhs()
+  {
+    $this->db
+      ->select('mahasiswa.*, user.*, user_role.*')
+      ->from('mahasiswa')
+      ->join('user', 'user.id_user = mahasiswa.user_id')
+      ->join('user_role', 'user_role.id = user.role_id');
+
+    return $this->db->get()->result_array();
+  }
+  public function getRoleDosen()
+  {
+    $this->db
+      ->select('user_role.*')
+      ->from('user_role')
+      ->where('user_role.category_role=', 3);
+
+
+    return $this->db->get()->result_array();
+  }
 }

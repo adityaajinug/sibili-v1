@@ -55,7 +55,7 @@
                         </div>
                       </td>
                       <td class="border-top-0 text-muted px-2 py-4 font-16"><?= $d['username']; ?></td>
-                      <td class="border-top-0 text-muted px-2 py-4 font-16"><?= $d['status']; ?></td>
+                      <td class="border-top-0 text-muted px-2 py-4 font-16"><?= $d['status_mhs']; ?></td>
 
                     </tr>
 

@@ -26,7 +26,8 @@ class Sertifikasi_model extends CI_Model
     $this->db
       ->select('form_upload.*')
       ->from('form_upload')
-      ->where('category_form=', 4)
+      ->join('user', 'form_upload.user_id = user.id_user')
+      ->where('category_form=', 5)
       ->order_by('form_upload.id_form', 'Desc');
 
     return $this->db->get()->result_array();
@@ -37,7 +38,7 @@ class Sertifikasi_model extends CI_Model
       ->select('form_upload.*')
       ->from('form_upload')
       ->limit('1')
-      ->where('category_form=', 4)
+      ->where('category_form=', 5)
       ->order_by('form_upload.id_form', 'Desc');
 
     return $this->db->get()->row_array();
@@ -49,7 +50,7 @@ class Sertifikasi_model extends CI_Model
       ->select('upload.*, user.id_user')
       ->from('upload')
       ->join('user', 'upload.user_id = user.id_user', 'left')
-      ->where('category_upload=', 4)
+      ->where('category_upload=', 5)
       ->where('user.username=', $data);
     return $this->db->get()->row_array();
   }
@@ -68,7 +69,8 @@ class Sertifikasi_model extends CI_Model
     $this->db
       ->select('dosen_pembimbing.*, dosen.dosen_name')
       ->from('dosen_pembimbing')
-      ->join('dosen', 'dosen.id_dosen = dosen_pembimbing.dosen_id');
+      ->join('dosen', 'dosen.id_dosen = dosen_pembimbing.dosen_id')
+      ->where('dosen.status_penguji=', 1);
     return $this->db->get()->result_array();
   }
   public function getDetailKelompok($id)
@@ -78,14 +80,14 @@ class Sertifikasi_model extends CI_Model
     ];
 
     $this->db
-      ->select('dosen_pembimbing.group, mhs_bimbingan_akhir.mhs_id, dosen.dosen_name, mahasiswa.mhs_name, mahasiswa.email, mahasiswa.status, user.username')
+      ->select('dosen_pembimbing.group, mhs_bimbingan_akhir.mhs_id, dosen.dosen_name, mahasiswa.mhs_name, mahasiswa.email, mahasiswa.status_mhs, user.username')
       ->from('mhs_bimbingan_akhir')
       ->join('mahasiswa', 'mahasiswa.id_mhs = mhs_bimbingan_akhir.mhs_id')
       ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = mhs_bimbingan_akhir.pembimbing_id')
       ->join('dosen', 'dosen.id_dosen = dosen_pembimbing.dosen_id')
       ->join('user', 'user.id_user = mahasiswa.user_id')
       ->where($data)
-      ->where('mahasiswa.status=', 'aktif');
+      ->where('mahasiswa.status_mhs=', 'aktif');
 
     return $this->db->get()->result_array();
   }
@@ -109,14 +111,15 @@ class Sertifikasi_model extends CI_Model
     $this->db->select('mahasiswa.id_mhs,mahasiswa.mhs_name, user.username')
       ->from('mahasiswa')
       ->join('user', 'user.id_user=mahasiswa.user_id')
-      ->where('mahasiswa.status=', 'aktif');
+      ->where('mahasiswa.status_mhs=', 'aktif');
     return $this->db->get()->result_array();
   }
   public function getAllDosen()
   {
     $this->db->select('dosen.id_dosen,dosen.dosen_name, user.username')
       ->from('dosen')
-      ->join('user', 'user.id_user=dosen.user_id');
+      ->join('user', 'user.id_user=dosen.user_id')
+      ->where('dosen.status_penguji=', 1);
     return $this->db->get()->result_array();
   }
   public function getDosenCode()
@@ -135,7 +138,7 @@ class Sertifikasi_model extends CI_Model
       ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = mhs_bimbingan_akhir.pembimbing_id')
       ->join('dosen', 'dosen_pembimbing.dosen_id = dosen.id_dosen')
       // ->where('dosen_pembimbing.id_pembimbing', $id)
-      ->where('mahasiswa.status=', 'aktif');
+      ->where('mahasiswa.status_mhs=', 'aktif');
     return $this->db->get()->result_array();
   }
   public function getSchedule($id)

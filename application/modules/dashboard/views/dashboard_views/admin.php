@@ -5,7 +5,7 @@
         <div class="card-body body-total-file d-flex align-items-center">
           <div class="text-total-file">
             <span class="sum">8</span>
-            <p class="desc">Mahasiswa Bimbingan</p>
+            <p class="desc">Mahasiswa</p>
           </div>
           <div class="icon-total-file">
             <i class="fas fa-file-alt"></i>
@@ -19,7 +19,7 @@
         <div class="card-body body-total-file d-flex align-items-center">
           <div class="text-total-file">
             <span class="sum">5</span>
-            <p class="desc">File Laporan</p>
+            <p class="desc">Dosen</p>
           </div>
           <div class="icon-total-file">
             <i class="fas fa-file-pdf"></i>
@@ -33,7 +33,7 @@
         <div class="card-body body-total-file d-flex align-items-center">
           <div class="text-total-file">
             <span class="sum">1</span>
-            <p class="desc">File Proposal</p>
+            <p class="desc">Kaprodi</p>
           </div>
           <div class="icon-total-file">
             <i class="fas fa-file-word"></i>

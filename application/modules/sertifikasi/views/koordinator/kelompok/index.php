@@ -76,7 +76,7 @@
 
           <div class="form-group">
             <label for="kelompok">Kelompok</label>
-            <input class="form-control" type="text" name="group" id="kelompok" value="" readonly>
+            <input class="form-control" type="text" name="group" id="kelompok" value="<?= $kode ?>" readonly>
           </div>
           <div class="form-group">
             <label for="dosen">Dosen</label>

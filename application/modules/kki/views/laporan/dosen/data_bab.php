@@ -3,7 +3,7 @@
   <div class="row">
 
     <div class="col-md">
-      <div class="card">
+      <div class="card card-radius">
 
         <div class="card-body">
           <h4 class="card-title">Tabel Data Bab</h4>

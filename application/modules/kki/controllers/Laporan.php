@@ -15,7 +15,8 @@ class Laporan extends CI_Controller
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->kki->getDosen(),
       'mhs' => $this->kki->getMhs(),
-
+      'upload_form' => $this->kki->getFormUpload(),
+      'upload' => $this->kki->getUpload(),
 
     ];
     if ($this->session->userdata('role_id') == 1) {
@@ -29,6 +30,8 @@ class Laporan extends CI_Controller
 
   public function kki_pertama()
   {
+
+
     $data = [
       'title' => 'Kuliah Kerja Industri / Bab',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
@@ -39,7 +42,8 @@ class Laporan extends CI_Controller
       'pembimbing' => $this->kki->pembimbingId(),
       'babDosen' => $this->kki->getBabDosen(),
       'allBabDosen' => $this->kki->getAllBabDosen(),
-      'bimbingan' => $this->kki->getBimbingan()
+      'bimbingan' => $this->kki->getBimbingan(),
+
 
     ];
     if ($this->session->userdata('role_id') == 1) {
@@ -50,6 +54,25 @@ class Laporan extends CI_Controller
       $this->template->load('templates/templates', 'laporan/dosen/detail', $data);
     }
   }
+  // public function input_file()
+  // {
+  //   $id = $this->uri->segment(3);
+  //   $data = [
+  //     'title' => 'Kuliah Kerja Industri / Bab',
+  //     'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+  //     'dosen' => $this->kki->getDosen(),
+  //     'mhs' => $this->kki->getMhs(),
+  //     'allbabkki' => $this->kki->allBabKki(),
+  //     'bab' => $this->kki->getBab(),
+  //     'pembimbing' => $this->kki->pembimbingId(),
+  //     'babDosen' => $this->kki->getBabDosen(),
+  //     'allBabDosen' => $this->kki->getAllBabDosen($id),
+  //     'bimbingan' => $this->kki->getBimbingan(),
+
+
+  //   ];
+  //   $this->template->load('templates/templates', 'laporan/mahasiswa/tambah', $data);
+  // }
 
 
   public function detail_bab()
@@ -67,7 +90,7 @@ class Laporan extends CI_Controller
       'bab_mhs' => $this->kki->getBabMhsPertama($id),
       'user_chat' => $this->kki->getUserChat($id, $group),
       'laporan' => $this->kki->getLaporanPertama($id, $group),
-      'bimbingan_koreksi' =>  $this->kki->getBimbinganKoreksi($id),
+      'bimbingan_koreksi' =>  $this->kki->getBimbinganKoreksi($id, $group),
 
     ];
 
@@ -156,12 +179,12 @@ class Laporan extends CI_Controller
       'mhs' => $this->kki->getMhs(),
       'pembimbing' => $this->kki->pembimbingId(),
       'bab_detail' => $this->kki->getBabDetail($file),
-      'bimbingan_koreksi' =>  $this->kki->getBimbinganKoreksi($id),
+      'bimbingan_koreksi' =>  $this->kki->getBimbinganKoreksi($id, $file),
 
     ];
     $this->template->load('templates/templates', 'laporan/dosen/chat', $data);
   }
-  public function tambah_file_kki1()
+  public function tambah_file_kki()
   {
     $config['upload_path']   = FCPATH . './assets/file/laporan/';
     $config['allowed_types'] = 'pdf';

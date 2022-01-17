@@ -25,4 +25,28 @@ class Referensi_model extends CI_Model
   {
     return $this->db->get('industries')->result_array();
   }
+  public function getUpload()
+  {
+    $this->db->distinct('tahun')
+      ->select('upload.*')
+      ->from('upload')
+      ->where('upload.tahun=', 2019)
+      ->where('upload.category_upload=', 1);
+
+
+    return $this->db->get()->result_array();
+  }
+  public function getDetailLap($id)
+  {
+    $this->db
+      ->select('upload.*, user.username')
+      ->from('upload')
+      ->join('user', 'upload.user_id = user.id_user')
+      ->where('upload.tahun=', 2019)
+      ->where('upload.category_upload=', 1)
+      ->where('upload.id_upload=', $id);
+
+
+    return $this->db->get()->result_array();
+  }
 }

@@ -66,6 +66,7 @@
             <label for="akhir">Batas Akhir</label>
             <input class="form-control" type="datetime-local" name="limit_end" id="akhir">
             <input class="form-control" type="hidden" name="category_form" value="4" id="akhir">
+            <input class="form-control" type="hidden" name="user_id" value="<?= $user['id_user'] ?>" id="akhir">
           </div>
 
 

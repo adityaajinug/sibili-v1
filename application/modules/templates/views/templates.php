@@ -92,33 +92,35 @@
               <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <?php if ($user['role_id'] == 1) { ?>
                   <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?></span> - <span class="text-dark">Sibili Administrator</span>
-                  <?php } else if ($user['role_id'] == 2) { ?>
-                    <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?> - </span> <span class="text-dark"><?= $mhs['mhs_name'] ?></span>
-                    <?php } else { ?>
-                      <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?> - </span> <span class="text-dark"><?= $dosen['dosen_name'] ?></span>
-                      <?php } ?>
+                  <?php } else if ($user['role_id'] == 7) { ?>
+                    <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?></span> - <span class="text-dark">Ketua Program Studi D3 TI</span>
+                    <?php } else if ($user['role_id'] == 2) { ?>
+                      <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?> - </span> <span class="text-dark"><?= $mhs['mhs_name'] ?></span>
+                      <?php } else { ?>
+                        <span class="ml-2 d-none d-lg-inline-block"><span><?= $user['username']; ?> - </span> <span class="text-dark"><?= $dosen['dosen_name'] ?></span>
+                        <?php } ?>
 
-                      <!-- <form action="<?= base_url('kki/update_status') ?>"> -->
-                      <input type="hidden" value="<?= $user['status'] ?>" name="status">
-                      <input type="hidden" value="<?= $user['id_user'] ?>" name="id">
-                      <!-- </form> -->
-
-
-
-
+                        <!-- <form action="<?= base_url('kki/update_status') ?>"> -->
+                        <input type="hidden" value="<?= $user['status'] ?>" name="status">
+                        <input type="hidden" value="<?= $user['id_user'] ?>" name="id">
+                        <!-- </form> -->
 
 
-                      </span>
-                      <img src="<?= base_url('assets/vendor/') ?>/images/profile.png" alt="user" class="rounded-circle" width="40">
-                      <i data-feather="chevron-down" class="svg-icon"></i>
+
+
+
+
+                        </span>
+                        <img src="<?= base_url('assets/vendor/') ?>/images/profile.png" alt="user" class="rounded-circle" width="40">
+                        <i data-feather="chevron-down" class="svg-icon"></i>
               </a>
 
               <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                 <a class="dropdown-item" href="javascript:void(0)"><i class="fas fa-user mr-2 ml-1"></i></i>
-                  My Profile</a>
+                  Profil Saya</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="javascript:void(0)"><i class="fas fa-cog mr-2"></i></i>
-                  Account Setting</a>
+                  Pengaturan Akun</a>
                 <!-- <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<?= base_url('login/logout') ?>"><i data-feather="power" class="svg-icon mr-2 ml-1"></i>
                   Logout</a> -->
@@ -298,6 +300,16 @@
     $(document).ready(function() {
       $('.js-example-basic-multiple').select2({
         placeholder: 'Pilih Mahasiswa',
+        width: 'resolve'
+      });
+    });
+    $(document).ready(function() {
+      $('.js-choose-status').select2({
+        placeholder: 'Pilih Status',
+        width: 'resolve'
+      });
+      $('.js-choose-role').select2({
+        placeholder: 'Pilih Role',
         width: 'resolve'
       });
     });

@@ -11,7 +11,7 @@ class Referensi extends CI_Controller
   public function file()
   {
     $data = [
-      'title' => 'File referensi',
+      'title' => 'File Proyek Akhir',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->referensi->getDosen(),
       'mhs' => $this->referensi->getMhs(),
@@ -21,21 +21,34 @@ class Referensi extends CI_Controller
   public function file_detail()
   {
     $data = [
+      'title' => 'File Detail',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->referensi->getDosen(),
       'mhs' => $this->referensi->getMhs(),
     ];
     $this->template->load('templates/templates', 'file_pa/detail', $data);
   }
-  public function video()
+  public function laporan()
   {
     $data = [
-      'title' => 'video',
+      'title' => 'File Laporan',
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->referensi->getDosen(),
       'mhs' => $this->referensi->getMhs(),
+      'laporan' => $this->referensi->getUpload()
     ];
-    $this->template->load('templates/templates', 'video/index', $data);
+    $this->template->load('templates/templates', 'laporan/index', $data);
+  }
+  public function detail_laporan($id)
+  {
+    $data = [
+      'title' => 'File Detail',
+      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+      'dosen' => $this->referensi->getDosen(),
+      'mhs' => $this->referensi->getMhs(),
+      'all' => $this->referensi->getDetailLap($id),
+    ];
+    $this->template->load('templates/templates', 'laporan/detail', $data);
   }
   public function industri()
   {
