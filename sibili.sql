@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 10 Jan 2022 pada 00.58
+-- Waktu pembuatan: 19 Jan 2022 pada 05.54
 -- Versi server: 5.7.33
 -- Versi PHP: 7.4.19
 
@@ -24,26 +24,108 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `bab_kki`
+-- Struktur dari tabel `announcement`
 --
 
-CREATE TABLE `bab_kki` (
+CREATE TABLE `announcement` (
+  `id_announce` int(11) NOT NULL,
+  `topic` varchar(200) NOT NULL,
+  `description` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `category_announce` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bab`
+--
+
+CREATE TABLE `bab` (
   `id_bab` int(11) NOT NULL,
+  `status_bab` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `description` text NOT NULL
+  `description` text NOT NULL,
+  `category_bab` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `bab_kki`
+-- Dumping data untuk tabel `bab`
 --
 
-INSERT INTO `bab_kki` (`id_bab`, `name`, `description`) VALUES
-(1, 'BAB I', 'Merupakan pendahuluan dari <br> laporan KKI.'),
-(2, 'BAB II', 'Merupakan tinjauan perusahaan dari <br> laporan KKI.'),
-(3, 'Bab III', 'Merupakan perancangan dan implementasi dari laporan KKI.'),
-(4, 'BAB IV', 'Merupakan kesimpulan dan saran <br> dari proyek akhir.'),
-(5, 'Daftar Pustaka', 'Merupakan rujukan referensi <br> dari laporan KKI.'),
-(6, 'ALL', 'Merupakan keseluruhan laporan KKI <br> yang sudah jadi.');
+INSERT INTO `bab` (`id_bab`, `status_bab`, `name`, `description`, `category_bab`) VALUES
+(1, 1, 'BAB I', 'Merupakan pendahuluan dari <br> laporan KKI.', 1),
+(2, 2, 'BAB II', 'Merupakan tinjauan perusahaan dari <br> laporan KKI.', 1),
+(3, 3, 'Bab III', 'Merupakan perancangan dan implementasi dari laporan KKI.', 1),
+(4, 4, 'BAB IV', 'Merupakan kesimpulan dan saran <br> dari proyek akhir.', 1),
+(5, 5, 'Daftar Pustaka', 'Merupakan rujukan referensi <br> dari laporan KKI.', 1),
+(6, 6, 'ALL', 'Merupakan keseluruhan laporan KKI <br> yang sudah jadi.', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bab_dosen`
+--
+
+CREATE TABLE `bab_dosen` (
+  `id_bab_dosen` int(11) NOT NULL,
+  `bab_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `pembimbing_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `bab_dosen`
+--
+
+INSERT INTO `bab_dosen` (`id_bab_dosen`, `bab_id`, `user_id`, `pembimbing_id`) VALUES
+(9, 1, 5, 8);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bimbingan`
+--
+
+CREATE TABLE `bimbingan` (
+  `id_bimbingan` int(11) NOT NULL,
+  `file` text NOT NULL,
+  `bab_dosen_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `pembimbing_id` int(11) NOT NULL,
+  `status_konfirmasi` int(11) NOT NULL,
+  `category_bimbingan` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `bimbingan`
+--
+
+INSERT INTO `bimbingan` (`id_bimbingan`, `file`, `bab_dosen_id`, `user_id`, `pembimbing_id`, `status_konfirmasi`, `category_bimbingan`) VALUES
+(14, 'A22_2019_02756_LAPORAN_KKI_1_SIBILI-halaman-2-42.pdf', 1, 2, 8, 1, 1),
+(15, 'A22_2019_02756_LAPORAN_KKI_1_SIBILI-halaman-2-43.pdf', 1, 6, 8, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bimbingan_koreksi`
+--
+
+CREATE TABLE `bimbingan_koreksi` (
+  `id_bimbingan_koreksi` int(11) NOT NULL,
+  `file` text NOT NULL,
+  `bab_dosen_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `pembimbing_id` int(11) NOT NULL,
+  `category_bimbingan_koreksi` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `bimbingan_koreksi`
+--
+
+INSERT INTO `bimbingan_koreksi` (`id_bimbingan_koreksi`, `file`, `bab_dosen_id`, `user_id`, `pembimbing_id`, `category_bimbingan_koreksi`) VALUES
+(7, 'A22_2019_02756_LAPORAN_KKI_1_SIBILI-halaman-5-62.pdf', 1, 5, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -56,39 +138,20 @@ CREATE TABLE `chats` (
   `incoming_chat_id` int(11) NOT NULL,
   `outgoing_chat_id` int(11) NOT NULL,
   `message` text NOT NULL,
-  `time` int(11) NOT NULL,
-  `bab_id` int(11) NOT NULL,
-  `pembimbing_id` varchar(20) NOT NULL
+  `time` datetime NOT NULL,
+  `bab_dosen_id` int(11) NOT NULL,
+  `group` varchar(20) NOT NULL,
+  `category_chats` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `chats`
 --
 
-INSERT INTO `chats` (`id_chats`, `incoming_chat_id`, `outgoing_chat_id`, `message`, `time`, `bab_id`, `pembimbing_id`) VALUES
-(7, 7, 4, 'cek', 1641687847, 1, 'DTI3422'),
-(8, 7, 4, 'filenya ', 1641687898, 1, 'DTI3422'),
-(9, 7, 4, 'sd', 1641689336, 1, 'DTI3422'),
-(36, 7, 4, 'test', 1641689564, 1, 'DTI3422'),
-(37, 7, 4, 'coba', 1641689768, 1, 'DTI3422'),
-(38, 7, 4, 'lagi', 1641689778, 1, 'DTI3422'),
-(39, 7, 4, 'sds', 1641689821, 1, 'DTI3422'),
-(40, 7, 4, 'sds123', 1641689845, 2, 'DTI3422'),
-(41, 7, 4, 'sdvc', 1641689863, 2, 'DTI3422'),
-(42, 7, 4, 'pagi pak', 1641693104, 1, 'DTI3422'),
-(43, 7, 4, 'halo\r\n', 1641693203, 1, 'DTI3422'),
-(44, 4, 7, 'iya', 1641693203, 1, 'DTI3422'),
-(45, 7, 4, 'd', 1641694190, 1, 'DTI3422'),
-(46, 7, 4, 'bab 2', 1641701736, 2, 'DTI3422'),
-(47, 7, 4, 'c', 1641701883, 2, 'DTI3422'),
-(48, 7, 4, 'c', 1641701990, 2, 'DTI3422'),
-(49, 7, 4, 'sd', 1641702241, 2, 'DTI3422'),
-(50, 3, 6, 'malam', 1641741867, 2, 'DTI2122'),
-(51, 3, 6, 'coba', 1641742476, 2, 'DTI2122'),
-(52, 3, 6, 'bab 3', 1641742567, 3, 'DTI2122'),
-(53, 3, 6, 'c', 1641743584, 1, 'DTI2122'),
-(54, 3, 6, 'test', 1641743679, 1, 'DTI2122'),
-(55, 3, 6, 'test', 1641771609, 4, 'DTI2122');
+INSERT INTO `chats` (`id_chats`, `incoming_chat_id`, `outgoing_chat_id`, `message`, `time`, `bab_dosen_id`, `group`, `category_chats`) VALUES
+(3, 5, 2, 'pak saya sudah upload bab 1', '2022-01-17 10:00:18', 1, 'DTI1558', 1),
+(4, 2, 5, 'ya baik', '2022-01-17 10:00:43', 1, 'DTI1558', 1),
+(5, 6, 5, 'test', '2022-01-19 12:33:18', 1, 'DTI1558', 1);
 
 -- --------------------------------------------------------
 
@@ -100,8 +163,7 @@ CREATE TABLE `dosen` (
   `id_dosen` int(11) NOT NULL,
   `dosen_name` varchar(150) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `address` varchar(200) NOT NULL,
-  `status` varchar(50) NOT NULL,
+  `status_penguji` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -109,10 +171,12 @@ CREATE TABLE `dosen` (
 -- Dumping data untuk tabel `dosen`
 --
 
-INSERT INTO `dosen` (`id_dosen`, `dosen_name`, `email`, `address`, `status`, `user_id`) VALUES
-(1, 'Dr. Fikri Budiman, M.Kom', 'fikribudiman@gmail.com', 'Tembalang', 'dosen', 3),
-(2, 'Edi Sugiarto, S.Kom, M.Kom', 'edi.sugiarto@dsn.dinus.ac.id', 'semarang', 'dosen', 5),
-(3, 'Muslih, M.Kom', 'muslih@dsn.dinus.ac.id', 'Gunung Pati', 'Koordinator Sertifikasi', 7);
+INSERT INTO `dosen` (`id_dosen`, `dosen_name`, `email`, `status_penguji`, `user_id`) VALUES
+(1, 'Dr. Fikri Budiman, M.Kom', 'fikri.budiman@dsn.dinus.ac.id', 1, 3),
+(2, 'Edi Sugiarto, S.Kom, M.Kom', 'edi.sugiarto@dsn.dinus.ac.id', 1, 5),
+(11, 'Zaenal Arifin SE, M.Kom', 'zaenal.arifin@dsn.dinus.ac.id', 0, 15),
+(12, 'Novi Hendiriyanto, M.Kom', 'novi.hendriyanto@dsn.dinus.ac.id', 1, 20),
+(13, 'Muslih, M.Kom', 'muslih@dsn.dinus.ac.id', 1, 21);
 
 -- --------------------------------------------------------
 
@@ -131,39 +195,46 @@ CREATE TABLE `dosen_pembimbing` (
 --
 
 INSERT INTO `dosen_pembimbing` (`id_pembimbing`, `group`, `dosen_id`) VALUES
-(3, 'DTI0122', 2),
 (4, 'DTI2122', 1),
-(5, 'DTI3422', 3);
+(7, 'DTI3730', 12),
+(8, 'DTI1558', 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `file_laporan`
+-- Struktur dari tabel `format`
 --
 
-CREATE TABLE `file_laporan` (
-  `id_file` int(11) NOT NULL,
-  `file` text NOT NULL,
-  `bab_id` int(11) NOT NULL,
-  `jenis_kki` int(11) NOT NULL,
+CREATE TABLE `format` (
+  `id_format` int(11) NOT NULL,
+  `format_name` int(11) NOT NULL,
+  `file` int(11) NOT NULL,
+  `category_format` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `form_upload`
+--
+
+CREATE TABLE `form_upload` (
+  `id_form` int(11) NOT NULL,
+  `limit_end` timestamp NOT NULL,
   `user_id` int(11) NOT NULL,
-  `pembimbing_id` int(11) NOT NULL
+  `category_form` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `file_laporan`
+-- Dumping data untuk tabel `form_upload`
 --
 
-INSERT INTO `file_laporan` (`id_file`, `file`, `bab_id`, `jenis_kki`, `user_id`, `pembimbing_id`) VALUES
-(1, 'bab1.pdf', 1, 1, 2, 3),
-(2, 'bab2.pdf', 2, 1, 2, 3),
-(3, 'A22.2019.02756_PROPOSAL_SIBILI.pdf', 1, 1, 4, 5),
-(4, 'bab3.pdf', 1, 1, 6, 4),
-(6, 'catatan.pdf', 2, 1, 6, 4),
-(7, 'BIMBINGAN_KKI_KE_6_Progres_Laporan_KKI_Ke_1.pdf', 3, 1, 6, 4),
-(8, 'lap1.pdf', 6, 1, 6, 4),
-(9, '852-2722-1-PB.pdf', 4, 1, 6, 4),
-(10, 'Hasil_kegiatan.pdf', 2, 1, 4, 5);
+INSERT INTO `form_upload` (`id_form`, `limit_end`, `user_id`, `category_form`) VALUES
+(1, '2022-01-12 00:31:00', 7, 5),
+(2, '2022-01-12 04:13:00', 7, 5),
+(3, '2022-01-13 04:30:00', 7, 5),
+(10, '2022-01-18 03:02:00', 15, 1),
+(13, '2022-01-20 02:38:00', 15, 2);
 
 -- --------------------------------------------------------
 
@@ -247,8 +318,7 @@ CREATE TABLE `mahasiswa` (
   `id_mhs` int(11) NOT NULL,
   `mhs_name` varchar(150) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `address` varchar(200) NOT NULL,
-  `status` varchar(50) NOT NULL,
+  `status_mhs` varchar(50) NOT NULL,
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -256,10 +326,11 @@ CREATE TABLE `mahasiswa` (
 -- Dumping data untuk tabel `mahasiswa`
 --
 
-INSERT INTO `mahasiswa` (`id_mhs`, `mhs_name`, `email`, `address`, `status`, `user_id`) VALUES
-(1, 'Aditya Ajie Nugroho', 'adityaajinug@gmail.com', 'Kab.Semarang', 'aktif', 2),
-(2, 'Made Garda', 'made@gmail.com', 'semarang', 'aktif', 4),
-(3, 'Bagus', 'bagus@gamil.com', 'semarang', 'aktif', 6);
+INSERT INTO `mahasiswa` (`id_mhs`, `mhs_name`, `email`, `status_mhs`, `user_id`) VALUES
+(1, 'Aditya Ajie Nugroho', 'adityaajinug@gmail.com', 'aktif', 2),
+(2, 'Ferisa Salsabila Putri', '122201902739@mhs.dinus.ac.id', 'aktif', 4),
+(3, 'Mohammad Bagus Chalil Akbar', 'bagus.chalil@gmail.com', 'aktif', 6),
+(6, 'Muhammad Dicky Afriza', '122201902785@mhs.dinus.ac.id', 'aktif', 18);
 
 -- --------------------------------------------------------
 
@@ -278,9 +349,90 @@ CREATE TABLE `mhs_bimbingan` (
 --
 
 INSERT INTO `mhs_bimbingan` (`id_mhs_bimbingan`, `pembimbing_id`, `mhs_id`) VALUES
-(1, 3, 1),
-(3, 4, 3),
-(4, 5, 2);
+(4, 5, 2),
+(5, 6, 6),
+(7, 4, 2),
+(8, 7, 6),
+(9, 8, 1),
+(10, 8, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `mhs_bimbingan_akhir`
+--
+
+CREATE TABLE `mhs_bimbingan_akhir` (
+  `id_mhs_bimbingan` int(11) NOT NULL,
+  `pembimbing_id` int(11) NOT NULL,
+  `mhs_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `mhs_bimbingan_akhir`
+--
+
+INSERT INTO `mhs_bimbingan_akhir` (`id_mhs_bimbingan`, `pembimbing_id`, `mhs_id`) VALUES
+(3, 6, 6),
+(4, 4, 3),
+(5, 4, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `mhs_exam`
+--
+
+CREATE TABLE `mhs_exam` (
+  `id_exam` int(11) NOT NULL,
+  `schedule_id` int(11) NOT NULL,
+  `mhs_id` int(11) NOT NULL,
+  `pembimbing_id` int(11) NOT NULL,
+  `assesor_one` int(11) NOT NULL,
+  `assesor_two` int(11) NOT NULL,
+  `group_exam` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `id_schedule` int(11) NOT NULL,
+  `schedule_start` timestamp NOT NULL,
+  `semester` varchar(10) NOT NULL,
+  `year_id` int(20) NOT NULL,
+  `category_schedule` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `schedule`
+--
+
+INSERT INTO `schedule` (`id_schedule`, `schedule_start`, `semester`, `year_id`, `category_schedule`) VALUES
+(3, '2022-01-17 01:00:00', '1', 1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `school_year`
+--
+
+CREATE TABLE `school_year` (
+  `id_year` int(11) NOT NULL,
+  `year` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `school_year`
+--
+
+INSERT INTO `school_year` (`id_year`, `year`) VALUES
+(1, '2021/2022'),
+(2, '2022/2023'),
+(3, '2023/2024');
 
 -- --------------------------------------------------------
 
@@ -294,6 +446,28 @@ CREATE TABLE `tugas_akhir` (
   `file` text NOT NULL,
   `status_file` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `upload`
+--
+
+CREATE TABLE `upload` (
+  `id_upload` int(11) NOT NULL,
+  `file` text NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `tahun` varchar(20) NOT NULL,
+  `category_upload` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `upload`
+--
+
+INSERT INTO `upload` (`id_upload`, `file`, `user_id`, `tahun`, `category_upload`) VALUES
+(3, 'Projek_Akhir_UAS-Event_Tech-_A22_2019_02756.pdf', 2, '2018', 4),
+(14, 'A22_2019_02756_LAPORAN_KKI_1_SIBILI-halaman-5-622.pdf', 2, '2019', 2);
 
 -- --------------------------------------------------------
 
@@ -315,13 +489,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `password`, `image`, `role_id`, `status`) VALUES
-(1, 'admin', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 1, 1641633916),
-(2, 'A22.2019.02756', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 2, 1641688132),
-(3, '0686.11.1995.070', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 3, 1641456233),
-(4, 'A22.2019.12345', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'defaul.jpg', 2, 1641705615),
-(5, '0686.11.2008.358', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 3, 1641693172),
-(6, 'A22.2019.09876', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 2, 1641776313),
-(7, '0686.11.1996.082', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 5, 1641457376);
+(1, 'admin', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 1, 1642571308),
+(2, 'A22.2019.02756', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 2, 1642571654),
+(3, '0686.11.1995.070', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 3, 1641860333),
+(4, 'A22.2019.02739', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'defaul.jpg', 2, 1642336894),
+(5, '0686.11.2008.358', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 3, 1642570448),
+(6, 'A22.2019.02733', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 2, 1642571367),
+(15, '0686.11.1993.041', '$2y$10$ItgahUkxqfutTnItk4KFuueA7JBGm7Be52sbgWnRZlD9WmokCWDcG', 'default.jpg', 4, 1642570115),
+(18, 'A22.2019.02785', '$2y$10$/JWZS9dR8eQ.PkYwE1EkTOsko9xdJv4Ri7id5sSY07MbBkvFJiwEy', 'default.jpg', 2, 1642387590),
+(19, 'kaprodi', '$2y$10$5rILPOC8uldJRzPxikBgL.OpbJnwXsigMuZdU4XGDk2Nh1P9U8SW6', 'default.jpg', 7, 1642571633),
+(20, '0686.11.2016.646', '$2y$10$WDJVLzWYH0NyGERBiIePquwxRkgFiILj9HYlgfRC/H9RZn7mNdkja', 'default.jpg', 6, 1642387587),
+(21, '0686.11.1996.082', '$2y$10$qcA1llHGdgRutRZF6cpdFeTZxJhgQuPw7KMFKHNIh/7Xxevs7vWDO', 'default.jpg', 5, 1642394524);
 
 -- --------------------------------------------------------
 
@@ -341,23 +519,29 @@ CREATE TABLE `user_access_menu` (
 
 INSERT INTO `user_access_menu` (`id`, `role_id`, `menu_id`) VALUES
 (41, 1, 1),
-(50, 1, 3),
-(51, 1, 5),
-(54, 1, 4),
-(55, 1, 2),
 (56, 2, 3),
 (57, 2, 4),
 (58, 2, 5),
-(59, 2, 6),
 (60, 3, 3),
 (63, 3, 5),
 (64, 5, 3),
 (65, 5, 4),
 (66, 5, 5),
-(67, 1, 7),
-(69, 1, 6),
-(70, 2, 7),
-(71, 3, 7);
+(73, 2, 6),
+(74, 2, 7),
+(76, 5, 6),
+(78, 3, 6),
+(79, 4, 3),
+(80, 4, 6),
+(81, 7, 3),
+(82, 7, 4),
+(83, 7, 5),
+(84, 7, 6),
+(85, 7, 7),
+(86, 6, 3),
+(87, 6, 4),
+(88, 6, 5),
+(89, 6, 6);
 
 -- --------------------------------------------------------
 
@@ -376,17 +560,10 @@ CREATE TABLE `user_access_sub_menu` (
 --
 
 INSERT INTO `user_access_sub_menu` (`id`, `role_id`, `submenu_id`) VALUES
-(4, 1, 5),
-(11, 1, 9),
 (17, 1, 2),
 (19, 1, 3),
-(24, 1, 13),
-(27, 1, 14),
 (32, 2, 7),
 (33, 2, 11),
-(35, 2, 10),
-(36, 2, 12),
-(37, 2, 15),
 (38, 2, 4),
 (39, 2, 8),
 (42, 2, 16),
@@ -400,15 +577,39 @@ INSERT INTO `user_access_sub_menu` (`id`, `role_id`, `submenu_id`) VALUES
 (51, 5, 14),
 (52, 5, 7),
 (53, 5, 8),
-(54, 5, 6),
-(55, 1, 17),
-(56, 1, 18),
-(57, 1, 19),
-(58, 1, 10),
-(59, 1, 12),
-(60, 1, 15),
-(61, 2, 19),
-(62, 3, 19);
+(64, 2, 19),
+(68, 1, 15),
+(69, 2, 10),
+(70, 2, 12),
+(72, 5, 19),
+(73, 1, 20),
+(77, 3, 19),
+(81, 4, 13),
+(82, 4, 4),
+(83, 4, 16),
+(84, 4, 19),
+(86, 2, 23),
+(87, 2, 24),
+(88, 2, 25),
+(89, 2, 26),
+(90, 2, 21),
+(92, 1, 17),
+(93, 1, 18),
+(94, 1, 5),
+(95, 7, 13),
+(96, 7, 14),
+(97, 7, 9),
+(98, 7, 10),
+(99, 7, 12),
+(100, 7, 21),
+(101, 7, 19),
+(102, 5, 11),
+(103, 6, 4),
+(104, 6, 16),
+(105, 6, 11),
+(106, 6, 19),
+(107, 6, 9),
+(108, 6, 7);
 
 -- --------------------------------------------------------
 
@@ -431,8 +632,8 @@ INSERT INTO `user_menu` (`id`, `menu`) VALUES
 (3, 'KKI'),
 (4, 'Sertifikasi'),
 (5, 'Proyek Akhir'),
-(6, 'Referensi'),
-(7, 'Informasi');
+(6, 'Informasi'),
+(7, 'Referensi');
 
 -- --------------------------------------------------------
 
@@ -442,20 +643,22 @@ INSERT INTO `user_menu` (`id`, `menu`) VALUES
 
 CREATE TABLE `user_role` (
   `id` int(11) NOT NULL,
-  `role` varchar(128) NOT NULL
+  `role` varchar(128) NOT NULL,
+  `category_role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `user_role`
 --
 
-INSERT INTO `user_role` (`id`, `role`) VALUES
-(1, 'Admin'),
-(2, 'Mahasiswa'),
-(3, 'Dosen'),
-(4, 'Dosen Koordinator KKI '),
-(5, 'Dosen Koordinator Sertifikasi '),
-(6, 'Dosen Koordinator PA ');
+INSERT INTO `user_role` (`id`, `role`, `category_role`) VALUES
+(1, 'Admin', 1),
+(2, 'Mahasiswa', 2),
+(3, 'Dosen', 3),
+(4, 'Dosen Koordinator KKI ', 3),
+(5, 'Dosen Koordinator Sertifikasi ', 3),
+(6, 'Dosen Koordinator PA ', 3),
+(7, 'Kaprodi', 3);
 
 -- --------------------------------------------------------
 
@@ -481,42 +684,58 @@ INSERT INTO `user_sub_menu` (`id_sub`, `menu_id`, `title`, `icon`, `url`, `is_ac
 (3, 2, 'Submenu', 'fas fa-tags', 'menu/submenu', 1),
 (4, 3, 'Laporan', 'fas fa-file-alt', 'kki/laporan', 1),
 (5, 1, 'Role Akses', 'fas fa-user-secret', 'admin/role', 1),
-(6, 3, 'Absensi', 'fas fa-signature', 'kki/absensi', 1),
+(6, 3, 'Log Harian', 'fas fa-signature', 'kki/log_harian', 1),
 (7, 5, 'Tugas Akhir', 'fas fa-file-alt', 'proyekakhir', 1),
-(8, 5, 'Absensi PA', 'fas fa-signature', 'proyekakhir/absensi', 1),
 (9, 5, 'Koordinator PA', 'fas fa-user-tie', 'proyekakhir/koordinator', 1),
-(10, 6, 'File PA', 'fas fa-fw fa-folder', 'referensi/file', 1),
+(10, 7, 'File PA', 'fas fa-fw fa-folder', 'referensi/file', 1),
 (11, 4, 'User Guide', 'fas fa-file-alt', 'sertifikasi/user_guide', 1),
-(12, 6, 'Video', 'fab fa-youtube', 'referensi/video', 1),
+(12, 7, 'File Laporan', 'fas fa-fw fa-folder', 'referensi/laporan', 1),
 (13, 3, 'Koordinator KKI', 'fas fa-fw fa-user-tie', 'kki/koordinator', 1),
 (14, 4, 'Koordinator Sertif', 'fas fa-fw fa-user-tie', 'sertifikasi/koordinator', 1),
-(15, 6, 'Industri', 'fas fa-fw fa-building', 'referensi/industri', 1),
 (16, 3, 'Proposal', 'fas fa-file-alt', 'kki/proposal', 1),
-(17, 1, 'Data Mahasiswa', 'fas fa-user-graduate', 'admin/datamhs', 1),
-(18, 1, 'Data Dosen', 'fas fa-user-tie', 'admin/datadosen', 1),
-(19, 7, 'Pengumuman', 'fas fa-bullhorn', 'informasi/pengumuman', 1);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `videos`
---
-
-CREATE TABLE `videos` (
-  `id_videos` int(11) NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `link` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(17, 1, 'Data Mahasiswa', 'fas fa-user-graduate', 'admin/mahasiswa', 1),
+(18, 1, 'Data Dosen', 'fas fa-user-tie', 'admin/dosen', 1),
+(19, 6, 'Pengumuman', 'fas fa-bullhorn', 'informasi/pengumuman', 1),
+(21, 7, 'File User Guide', 'fas fa-fw fa-folder', 'referensi/user_guide', 1),
+(22, 1, 'Tahun Ajaran', 'fas fa-graduation-cap', 'admin/tahun_ajaran', 1),
+(23, 7, 'Industri', 'fas fa-building', 'referensi/industri', 1),
+(24, 3, 'Ujian KKI', 'fas fa-paste', 'kki/ujian', 1),
+(25, 4, 'Ujian Sertifikasi', 'fas fa-paste', 'sertifikasi/ujian', 1),
+(26, 5, 'Ujian Tugas Akhir', 'fas fa-paste', 'pa/ujian', 1);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `bab_kki`
+-- Indeks untuk tabel `announcement`
 --
-ALTER TABLE `bab_kki`
+ALTER TABLE `announcement`
+  ADD PRIMARY KEY (`id_announce`);
+
+--
+-- Indeks untuk tabel `bab`
+--
+ALTER TABLE `bab`
   ADD PRIMARY KEY (`id_bab`);
+
+--
+-- Indeks untuk tabel `bab_dosen`
+--
+ALTER TABLE `bab_dosen`
+  ADD PRIMARY KEY (`id_bab_dosen`);
+
+--
+-- Indeks untuk tabel `bimbingan`
+--
+ALTER TABLE `bimbingan`
+  ADD PRIMARY KEY (`id_bimbingan`);
+
+--
+-- Indeks untuk tabel `bimbingan_koreksi`
+--
+ALTER TABLE `bimbingan_koreksi`
+  ADD PRIMARY KEY (`id_bimbingan_koreksi`);
 
 --
 -- Indeks untuk tabel `chats`
@@ -538,10 +757,16 @@ ALTER TABLE `dosen_pembimbing`
   ADD PRIMARY KEY (`id_pembimbing`);
 
 --
--- Indeks untuk tabel `file_laporan`
+-- Indeks untuk tabel `format`
 --
-ALTER TABLE `file_laporan`
-  ADD PRIMARY KEY (`id_file`);
+ALTER TABLE `format`
+  ADD PRIMARY KEY (`id_format`);
+
+--
+-- Indeks untuk tabel `form_upload`
+--
+ALTER TABLE `form_upload`
+  ADD PRIMARY KEY (`id_form`);
 
 --
 -- Indeks untuk tabel `industries`
@@ -561,6 +786,36 @@ ALTER TABLE `mahasiswa`
 --
 ALTER TABLE `mhs_bimbingan`
   ADD PRIMARY KEY (`id_mhs_bimbingan`);
+
+--
+-- Indeks untuk tabel `mhs_bimbingan_akhir`
+--
+ALTER TABLE `mhs_bimbingan_akhir`
+  ADD PRIMARY KEY (`id_mhs_bimbingan`);
+
+--
+-- Indeks untuk tabel `mhs_exam`
+--
+ALTER TABLE `mhs_exam`
+  ADD PRIMARY KEY (`id_exam`);
+
+--
+-- Indeks untuk tabel `schedule`
+--
+ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`id_schedule`);
+
+--
+-- Indeks untuk tabel `school_year`
+--
+ALTER TABLE `school_year`
+  ADD PRIMARY KEY (`id_year`);
+
+--
+-- Indeks untuk tabel `upload`
+--
+ALTER TABLE `upload`
+  ADD PRIMARY KEY (`id_upload`);
 
 --
 -- Indeks untuk tabel `user`
@@ -599,44 +854,68 @@ ALTER TABLE `user_sub_menu`
   ADD PRIMARY KEY (`id_sub`);
 
 --
--- Indeks untuk tabel `videos`
---
-ALTER TABLE `videos`
-  ADD PRIMARY KEY (`id_videos`);
-
---
 -- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT untuk tabel `bab_kki`
+-- AUTO_INCREMENT untuk tabel `announcement`
 --
-ALTER TABLE `bab_kki`
+ALTER TABLE `announcement`
+  MODIFY `id_announce` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `bab`
+--
+ALTER TABLE `bab`
   MODIFY `id_bab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `bab_dosen`
+--
+ALTER TABLE `bab_dosen`
+  MODIFY `id_bab_dosen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT untuk tabel `bimbingan`
+--
+ALTER TABLE `bimbingan`
+  MODIFY `id_bimbingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT untuk tabel `bimbingan_koreksi`
+--
+ALTER TABLE `bimbingan_koreksi`
+  MODIFY `id_bimbingan_koreksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `id_chats` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id_chats` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id_dosen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_dosen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `dosen_pembimbing`
 --
 ALTER TABLE `dosen_pembimbing`
-  MODIFY `id_pembimbing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pembimbing` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `file_laporan`
+-- AUTO_INCREMENT untuk tabel `format`
 --
-ALTER TABLE `file_laporan`
-  MODIFY `id_file` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+ALTER TABLE `format`
+  MODIFY `id_format` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `form_upload`
+--
+ALTER TABLE `form_upload`
+  MODIFY `id_form` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `industries`
@@ -648,31 +927,61 @@ ALTER TABLE `industries`
 -- AUTO_INCREMENT untuk tabel `mahasiswa`
 --
 ALTER TABLE `mahasiswa`
-  MODIFY `id_mhs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_mhs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `mhs_bimbingan`
 --
 ALTER TABLE `mhs_bimbingan`
-  MODIFY `id_mhs_bimbingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_mhs_bimbingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT untuk tabel `mhs_bimbingan_akhir`
+--
+ALTER TABLE `mhs_bimbingan_akhir`
+  MODIFY `id_mhs_bimbingan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `mhs_exam`
+--
+ALTER TABLE `mhs_exam`
+  MODIFY `id_exam` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `schedule`
+--
+ALTER TABLE `schedule`
+  MODIFY `id_schedule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `school_year`
+--
+ALTER TABLE `school_year`
+  MODIFY `id_year` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `upload`
+--
+ALTER TABLE `upload`
+  MODIFY `id_upload` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_access_menu`
 --
 ALTER TABLE `user_access_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_access_sub_menu`
 --
 ALTER TABLE `user_access_sub_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_menu`
@@ -684,19 +993,13 @@ ALTER TABLE `user_menu`
 -- AUTO_INCREMENT untuk tabel `user_role`
 --
 ALTER TABLE `user_role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_sub_menu`
 --
 ALTER TABLE `user_sub_menu`
-  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT untuk tabel `videos`
---
-ALTER TABLE `videos`
-  MODIFY `id_videos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sub` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
