@@ -132,6 +132,18 @@ class Sertifikasi extends CI_Controller
     ];
     $this->template->load('templates/templates', 'koordinator/tahun/detail', $data);
   }
+  public function tambah_pembimbing()
+  {
+    $data = [
+      'group' => $this->input->post('group'),
+      'dosen_id' => $this->input->post('dosen_id'),
+
+    ];
+    $this->db->insert('dosen_pembimbing', $data);
+    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+    <strong>Success - </strong> Data Tersimpan!</div>');
+    redirect('sertifikasi/kelompok');
+  }
   public function tambah_jadwal()
   {
     $data = [

@@ -171,6 +171,7 @@ class Laporan extends CI_Controller
 
     $file = $this->uri->segment(6);
     $id = $this->uri->segment(4);
+    $group = $this->uri->segment(5);
     $data = [
       'title' => 'Bab Detail',
       'kki' => 'Kuliah Kerja Industri / Bab / Detail',
@@ -179,7 +180,7 @@ class Laporan extends CI_Controller
       'mhs' => $this->kki->getMhs(),
       'pembimbing' => $this->kki->pembimbingId(),
       'bab_detail' => $this->kki->getBabDetail($file),
-      'bimbingan_koreksi' =>  $this->kki->getBimbinganKoreksi($id, $file),
+      'bimbingan_koreksi' =>  $this->kki->getBimbinganKoreksi($id, $group),
 
     ];
     $this->template->load('templates/templates', 'laporan/dosen/chat', $data);

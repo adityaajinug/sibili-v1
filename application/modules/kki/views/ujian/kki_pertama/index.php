@@ -31,15 +31,18 @@
     <?php
     date_default_timezone_set('Asia/Jakarta');
     $now = (new DateTime())->format('Y-m-d H:i:s');
+    // echo $now;
 
 
-    if ($upload_form['limit_end'] <= $now) { ?>
-      <div class="col-md">
-        <div class="icon-none">
-          <i class="fas fa-file-pdf"></i>
-          <p>Saat ini belum ada submit laporan</p>
+    if ($upload_form['limit_end'] < $now) { ?>
+      <?php if ($upload_form == null) { ?>
+        <div class="col-md">
+          <div class="icon-none">
+            <i class="fas fa-file-pdf"></i>
+            <p>Saat ini belum ada submit laporan</p>
+          </div>
         </div>
-      </div>
+      <?php } ?>
     <?php } else { ?>
       <div class="col-md">
         <?= $this->session->flashdata('pesan'); ?>
@@ -194,7 +197,7 @@
             <?php $nim = $user['username'];
             $substr = substr($nim, 4, 4);
             ?>
-            <input type="text" name="th" value="<?= $substr ?>">
+            <input type="hidden" name="th" value="<?= $substr ?>">
 
           </div>
 

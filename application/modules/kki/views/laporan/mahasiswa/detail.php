@@ -95,7 +95,7 @@
             <label for="bab">Jenis File</label>
             <select class="js-choose form-control" name="bab_id" style="width:100%;font-size:18px">
               <?php foreach ($allBabDosen as $j) : ?>
-                <option value="<?= $j['bab_id'] ?>"><?= $j['name'] ?> <?= $j['pembimbing_id'] ?></option>
+                <option value="<?= $j['bab_id'] ?>"><?= $j['name'] ?></option>
               <?php endforeach; ?>
             </select>
           </div>

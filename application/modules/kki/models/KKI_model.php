@@ -145,7 +145,7 @@ class KKI_model extends CI_Model
     $this->db
       ->select('bimbingan.file, dosen_pembimbing.group, bimbingan.bab_dosen_id, bab.name, bab.description, bimbingan.status_konfirmasi')
       ->from('bimbingan')
-      ->join('bab_dosen', 'bimbingan.bab_dosen_id = bab_dosen.id_bab_dosen')
+      ->join('bab_dosen', 'bimbingan.bab_dosen_id = bab_dosen.bab_id')
       ->join('bab', 'bab.status_bab = bab_dosen.bab_id')
       ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = bimbingan.pembimbing_id')
       ->join('user', 'bimbingan.user_id = user.id_user')
@@ -234,7 +234,7 @@ class KKI_model extends CI_Model
       ->from('bimbingan')
       ->join('user', 'bimbingan.user_id = user.id_user')
       ->join('mahasiswa', 'mahasiswa.user_id = user.id_user')
-      ->join('bab_dosen', 'bimbingan.bab_dosen_id = bab_dosen.id_bab_dosen')
+      ->join('bab_dosen', 'bimbingan.bab_dosen_id = bab_dosen.bab_id')
       ->join('bab', 'bab.status_bab = bab_dosen.bab_id')
       ->join('dosen_pembimbing', 'dosen_pembimbing.id_pembimbing = bimbingan.pembimbing_id')
       ->join('dosen', 'dosen.id_dosen = dosen_pembimbing.dosen_id')
@@ -271,11 +271,13 @@ class KKI_model extends CI_Model
   }
   public function chatMessage($outgoing_chat_id, $incoming_chat_id, $bab_dosen_id, $group)
   {
+
     $this->db->from('chats');
     $this->db->where('outgoing_chat_id', $outgoing_chat_id);
     $this->db->where('incoming_chat_id', $incoming_chat_id);
     $this->db->where('bab_dosen_id', $bab_dosen_id);
     $this->db->where('group', $group);
+    // $this->db->where('outgoing_chat=', $data);
     $this->db->or_where('outgoing_chat_id', $incoming_chat_id);
     $this->db->or_where('incoming_chat_id', $outgoing_chat_id);
 

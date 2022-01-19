@@ -31,13 +31,24 @@
           <div class="form-group">
             <label for="bab">Jenis File</label>
             <select class="js-choose form-control" name="bab_id" style="width:100%;font-size:18px">
-              <?php foreach ($allbabkki as $j) : ?>
-                <option value="<?= $j['id_bab'] ?>"><?= $j['name'] ?></option>
-              <?php endforeach; ?>
+              <?php if ($pembimbing == null) : ?>
+                <option value="">Tidak bisa unggah</option>
+              <?php else : ?>
+                <?php foreach ($allbabkki as $j) : ?>
+                  <option value=" <?= $j['id_bab'] ?>"><?= $j['name'] ?></option>
+                <?php endforeach; ?>
+              <?php endif; ?>
+
             </select>
           </div>
           <input type="hidden" name="user_id" id="" value="<?= $user['id_user'] ?>">
-          <input type="hidden" name="pembimbing_id" value=" <?= $pembimbing['id_pembimbing'] ?>">
+          <?php if ($pembimbing == null) : ?>
+            <input type="hidden" name="pembimbing_id" value="">
+
+          <?php else : ?>
+            <input type="hidden" name="pembimbing_id" value=" <?= $pembimbing['id_pembimbing'] ?>">
+
+          <?php endif; ?>
 
           <div class="form-group text-center">
             <button class="btn btn-rounded btn-primary" type="submit">Simpan</button>

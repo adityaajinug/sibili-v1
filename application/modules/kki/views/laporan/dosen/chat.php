@@ -4,6 +4,7 @@
     <div class="card-body">
       <div class="row text-center">
         <?php
+        // var_dump($bimbingan_koreksi);
         if ($bimbingan_koreksi == null) : ?>
           <div class="col-md-6">
             <p>Tombol Koreksi Bimbingan</p>
@@ -126,7 +127,7 @@
             </div>
 
             <div class="form-group">
-              <label for="bab">Jenis File</label>
+              <label for="bab">File</label>
               <input type="file" class="form-control" id="bab" name="file">
             </div>
 

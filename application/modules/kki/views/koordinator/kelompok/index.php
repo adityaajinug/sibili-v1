@@ -68,7 +68,7 @@
                     <p style="font-size: 24px;color:black;font-weight:500">Tambah Kelompok Bimbingan</p>
                 </div>
 
-                <form action="<?= base_url('kki/tambah_kelompok') ?>" method="POST" class="pl-3 pr-3">
+                <form action="<?= base_url('kki/tambah_pembimbing') ?>" method="POST" class="pl-3 pr-3">
 
                     <div class="form-group">
                         <label for="kelompok">Kelompok</label>
@@ -78,7 +78,10 @@
                         <label for="dosen">Dosen</label>
                         <select class="js-example-basic-single form-control" name="dosen_id" style="width:100%;font-size:18px">
                             <?php foreach ($allDosen as $d) : ?>
+
                                 <option value="<?= $d['id_dosen'] ?>"><?= $d['dosen_name'] ?></option>
+
+
 
                             <?php endforeach; ?>
 

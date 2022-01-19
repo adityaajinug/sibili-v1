@@ -72,7 +72,7 @@
           <p style="font-size: 24px;color:black;font-weight:500">Tambah Kelompok Bimbingan</p>
         </div>
 
-        <form action="<?= base_url('sertifikasi/tambah_oembimbing') ?>" method="POST" class="pl-3 pr-3">
+        <form action="<?= base_url('sertifikasi/tambah_pembimbing') ?>" method="POST" class="pl-3 pr-3">
 
           <div class="form-group">
             <label for="kelompok">Kelompok</label>
