@@ -27,10 +27,6 @@ class Login extends CI_Controller
 
     $process = $this->login->process_login($username, $password);
     if ($process) {
-
-
-
-
       redirect('dashboard');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger text-center" role="alert">
@@ -44,5 +40,9 @@ class Login extends CI_Controller
     $this->session->unset_userdata('username');
     $this->session->unset_userdata('role_id');
     redirect('login');
+  }
+  public function blocked()
+  {
+    $this->load->view('blocked');
   }
 }

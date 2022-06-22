@@ -21,6 +21,27 @@ function is_logged_in()
     }
   }
 }
+function sub()
+{
+  $ci = get_instance();
+  if (!$ci->session->userdata('username')) {
+    redirect('login');
+  } else {
+    $role_id = $ci->session->userdata('role_id');
+    $submenu = $ci->uri->segment(2);
+
+    $querySubmenu = $ci->db->get_where('user_sub_menu', ['title' => $submenu])->row_array();
+    $submenu = $querySubmenu['id'];
+
+    $userAccess = $ci->db->get_where('user_access_sub_menu', [
+      'role_id' => $role_id,
+      'submenu_id' => $submenu
+    ]);
+    if ($userAccess->num_rows() < 1) {
+      redirect('login/blocked');
+    }
+  }
+}
 
 function check_access($role_id, $menu_id)
 {
@@ -76,7 +97,6 @@ function format_indo($date)
 }
 function waktu_indo($date)
 {
-  date_default_timezone_set('Asia/Jakarta');
   $waktu = substr($date, 11, 5);
   $result = $waktu;
 
@@ -84,7 +104,7 @@ function waktu_indo($date)
 }
 function tgl_indo($date)
 {
-  date_default_timezone_set('Asia/Jakarta');
+
   // array hari dan bulan
   $Hari = array("Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu");
   $Bulan = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
@@ -98,4 +118,29 @@ function tgl_indo($date)
   $result = $Hari[$hari] . ", " . $tgl . " " . $Bulan[(int)$bulan - 1] . " " . $tahun . " ";
 
   return $result;
+}
+
+function session()
+{
+  $ci = get_instance();
+
+  $ci->session->userdata('username');
+}
+function dosen()
+{
+  $ci = get_instance();
+  $data = $ci->session->userdata('username');
+  $ci->db->select('user.username, dosen.dosen_name, dosen.id_dosen, dosen.year_id, dosen.user_id');
+  $ci->db->from('user');
+  $ci->db->join('dosen', 'user.id_user = dosen.user_id', 'left');
+  $ci->db->where('user.username=', $data);
+}
+function mahasiswa()
+{
+  $ci = get_instance();
+  $data = $ci->session->userdata('username');
+  $ci->db->select('user.username, mahasiswa.mhs_name, mahasiswa.id_mhs, mahasiswa.year_id, mahasiswa.user_id');
+  $ci->db->from('user');
+  $ci->db->join('mahasiswa', 'user.id_user = mahasiswa.user_id', 'left');
+  $ci->db->where('user.username=', $data);
 }

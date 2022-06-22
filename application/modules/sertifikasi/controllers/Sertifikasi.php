@@ -6,6 +6,7 @@ class Sertifikasi extends CI_Controller
   public function __construct()
   {
     parent::__construct();
+    is_logged_in();
     $this->load->model('Sertifikasi_model', 'sertifikasi');
   }
   public function koordinator()
@@ -107,7 +108,7 @@ class Sertifikasi extends CI_Controller
     <strong>Success - </strong> Data Tersimpan!</div>');
     redirect('sertifikasi/detail_kelompok/' . $kelompok);
   }
-  public function ujian()
+  public function jadwal()
   {
     $data = [
       'title' => 'Koordinator Sertifikasi',

@@ -23,7 +23,7 @@
           <div class="data-desc">
             <h5>Ujian <br>Sertifikasi</br></h5>
             <div class="btn-data">
-              <a href="<?= base_url('sertifikasi/ujian') ?>" class="btn btn-blue">Detail</a>
+              <a href="<?= base_url('sertifikasi/jadwal') ?>" class="btn btn-blue">Detail</a>
             </div>
           </div>
           <div class="icon-data">

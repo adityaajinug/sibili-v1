@@ -50,5 +50,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'login';
-$route['404_override'] = '';
+$route['404_override'] = 'login/blocked';
 $route['translate_uri_dashes'] = FALSE;
+
+// $route['kki/laporan/bab/(:num)/(:any)'] = 'kki/laporan/detail_bab_satu/$1/$2/';
+$route['kki/laporan/bab/(.+)'] = 'kki/laporan/detail_bab_satu/$1/';
+$route['kki/laporan/detail/(.+)'] = 'kki/laporan/bab_detail_satu/$1/';
+
+$route['kki/laporan/kki-satu'] = 'kki/laporan/kki_pertama';
+
+$route['blocked'] = 'login/blocked';
+// $route['kki/laporan/det_bab/(:num)/(:any)'] = 'ki/laporan/bab_detail/$1/$2/';

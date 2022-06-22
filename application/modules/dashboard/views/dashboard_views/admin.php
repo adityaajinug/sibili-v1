@@ -32,8 +32,8 @@
       <div class="card card-total-file shadow-sm">
         <div class="card-body body-total-file d-flex align-items-center">
           <div class="text-total-file">
-            <span class="sum">1</span>
-            <p class="desc">Kaprodi</p>
+            <span class="sum">10</span>
+            <p class="desc">Menu</p>
           </div>
           <div class="icon-total-file">
             <i class="fas fa-file-word"></i>

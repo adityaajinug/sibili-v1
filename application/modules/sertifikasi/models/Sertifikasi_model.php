@@ -27,7 +27,7 @@ class Sertifikasi_model extends CI_Model
       ->select('form_upload.*')
       ->from('form_upload')
       ->join('user', 'form_upload.user_id = user.id_user')
-      ->where('category_form=', 5)
+      ->where('category_form=', 4)
       ->order_by('form_upload.id_form', 'Desc');
 
     return $this->db->get()->result_array();
@@ -38,7 +38,7 @@ class Sertifikasi_model extends CI_Model
       ->select('form_upload.*')
       ->from('form_upload')
       ->limit('1')
-      ->where('category_form=', 5)
+      ->where('category_form=', 4)
       ->order_by('form_upload.id_form', 'Desc');
 
     return $this->db->get()->row_array();
@@ -144,11 +144,9 @@ class Sertifikasi_model extends CI_Model
   public function getSchedule($id)
   {
     $this->db
-      ->select('schedule.*, school_year.*')
+      ->select('schedule.*')
       ->from('schedule')
-      ->join('school_year', 'school_year.id_year = schedule.year_id')
-      ->where('category_schedule=', 2)
-      ->where('schedule.year_id', $id);
+      ->where('schedule.id_schedule', $id);
     return $this->db->get()->result_array();
   }
   public function getYear()

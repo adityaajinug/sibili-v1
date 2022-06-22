@@ -48,9 +48,9 @@
             <div class="data-desc">
 
               <h5>Upload <?php if ($upload_form['category_form'] == 1) {
-                            echo "Laporan KKI I";
+                            echo "User Guide Sertifikasi I";
                           } else {
-                            echo "Laporan KKI II";
+                            echo "User Guide Sertifikasi II";
                           } ?></br></h5>
               <table class="mt-4">
                 <tr>

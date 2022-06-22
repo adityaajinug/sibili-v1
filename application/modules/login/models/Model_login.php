@@ -12,7 +12,7 @@ class Model_login extends CI_Model
         $var = [
           'username' => $data['username'],
           'role_id' => $data['role_id'],
-          'id_user' => $data['id_user']
+          'id_user' => $data['id_user'],
         ];
         $this->session->set_userdata($var);
       }

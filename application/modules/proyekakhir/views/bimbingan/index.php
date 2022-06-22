@@ -4,8 +4,7 @@
       <div class="card card-radius">
         <div class="card-body">
           <h3 class="card-title-text">Abstrak</h3>
-          <p class="card-text-space">Penjelasan singkat mengenai isi
-            tulisan.</p>
+          <p class="card-text-space">Penjelasan singkat mengenai isi tulisan.</p>
           <a href="#" class="btn btn-primary">Detail</a>
           <a href="#" class="btn btn-success">Edit</a>
         </div>

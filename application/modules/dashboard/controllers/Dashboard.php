@@ -17,13 +17,24 @@ class Dashboard extends CI_Controller
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->dashboard->getDosen(),
       'mhs' => $this->dashboard->getMhs(),
+      'announce' => $this->dashboard->getAllAnnounce()
     ];
     if ($this->session->userdata('role_id') == 1) {
       $this->template->load('templates/templates', 'dashboard_views/admin', $data);
     } else if ($this->session->userdata('role_id') == 2) {
       $this->template->load('templates/templates', 'dashboard_views/mhs', $data);
-    } else {
+    } else if ($this->session->userdata('role_id') == 7) {
+      $this->template->load('templates/templates', 'dashboard_views/kaprodi', $data);
+    } else if ($this->session->userdata('role_id') == 3) {
       $this->template->load('templates/templates', 'dashboard_views/dosen', $data);
+    } else if ($this->session->userdata('role_id') == 4) {
+      $this->template->load('templates/templates', 'dashboard_views/dosen', $data);
+    } else if ($this->session->userdata('role_id') == 5) {
+      $this->template->load('templates/templates', 'dashboard_views/dosen', $data);
+    } else if ($this->session->userdata('role_id') == 6) {
+      $this->template->load('templates/templates', 'dashboard_views/dosen', $data);
+    } else {
+      redirect('login/blocked');
     }
   }
 }

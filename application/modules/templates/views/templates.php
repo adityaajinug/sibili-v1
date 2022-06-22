@@ -19,6 +19,7 @@
   <!-- Custom CSS -->
   <link href="<?= base_url() ?>/assets/dist/css/style.min.css" rel="stylesheet" type="text/css">
   <link href="<?= base_url() ?>/assets/dist/css/card.min.css" rel="stylesheet" type="text/css">
+  <link href="<?= base_url() ?>/assets/dist/css/table.min.css" rel="stylesheet" type="text/css">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="<?= base_url('assets/vendor/extra-libs/sweetalert2/') ?>sweetalert2.min.css">
   <script src="<?= base_url() ?>/assets/vendor/libs/jquery/dist/jquery.min.js"></script>
@@ -79,13 +80,13 @@
           <ul class="navbar-nav float-right">
             <!-- ============================================================== -->
             <!-- Notification -->
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)" id="bell" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span><i data-feather="bell" class="svg-icon"></i></span>
                 <span class="badge badge-primary notify-no rounded-circle">5</span>
               </a>
 
-            </li>
+            </li> -->
 
 
             <li class="nav-item dropdown">
@@ -227,6 +228,8 @@
                 echo $user['username'];
               } else if ($user['role_id'] == 2) {
                 echo $mhs['mhs_name'];
+              } else if ($user['role_id'] == 7) {
+                echo "Kaprodi";
               } else {
                 echo $dosen['dosen_name'];
               }
@@ -284,6 +287,7 @@
 
   <script src="<?= base_url() ?>/assets/vendor/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="<?= base_url() ?>/assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
+
   <script>
     $(document).ready(function() {
       $('.js-example-basic-single').select2({
@@ -297,6 +301,7 @@
         width: 'resolve'
       });
     });
+
     $(document).ready(function() {
       $('.js-example-basic-multiple').select2({
         placeholder: 'Pilih Mahasiswa',
@@ -310,6 +315,10 @@
       });
       $('.js-choose-role').select2({
         placeholder: 'Pilih Role',
+        width: 'resolve'
+      });
+      $('.js-choose-instansi').select2({
+        placeholder: 'Pilih Instansi',
         width: 'resolve'
       });
     });
@@ -329,25 +338,6 @@
     }
   </script> -->
 
-  <!-- <script>
-    function postMessage() {
-      const request = new Request("<?= base_url() ?>kki/laporan/input_chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          outgoing_chat_id: document.getElementById("outgoing_chat_id").value,
-          incoming_chat_id: document.getElementById("incoming_chat_id").value,
-          input_message: document.getElementById("input_message").value,
-          bab_id: document.getElementById("bab_id").value,
-          pembimbing_id: document.getElementById("pembimbing_id").value,
-        })
-      });
-    }
-    document.getElementById("send").onclick = postMessage;
-  </script> -->
   <script>
     $('.cek').on('click', function() {
       const menu_id = $(this).data('menu');
@@ -392,7 +382,7 @@
     });
   </script>
 
-  <script>
+  <!-- <script>
     function updateUserStatus() {
       jQuery.ajax({
         url: "<?= base_url('kki/laporan/update_status') ?>",
@@ -402,7 +392,7 @@
     setInterval(function() {
       updateUserStatus()
     }, 1000);
-  </script>
+  </script> -->
 
 
 

@@ -7,6 +7,7 @@ class Dosen extends CI_Controller
   {
     parent::__construct();
     $this->load->model('Admin_model', 'admin');
+    is_logged_in();
   }
   public function index()
   {

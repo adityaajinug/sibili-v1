@@ -14,10 +14,13 @@ class Api extends CI_Controller
     $incoming_chat_id = $this->input->get('incoming_chat_id');
     $bab_dosen_id = $this->input->get('bab_dosen_id');
     $group = $this->input->get('group');
+    $bimbingan_id = $this->input->get('bimbingan_id');
+
+    $user = $this->uri->segment(6);
 
 
 
-    $chat = $this->kki->chatMessage($outgoing_chat_id, $incoming_chat_id, $bab_dosen_id, $group);
+    $chat = $this->kki->chatMessage($outgoing_chat_id, $incoming_chat_id, $bab_dosen_id, $group, $bimbingan_id);
     foreach ($chat as $c) {
       $result[] = array(
         'sender' => $this->session->userdata('id_user') == $c->outgoing_chat_id ? true : false,
@@ -25,6 +28,7 @@ class Api extends CI_Controller
         'incoming_chat_id' => $c->incoming_chat_id,
         'outgoing_chat_id' => $c->outgoing_chat_id,
         'message' => $c->message,
+        'bimbingan_id' => $c->bimbingan_id,
         'time' => $c->time,
         'bab_dosen_id' => $c->bab_dosen_id,
         'group' => $c->group

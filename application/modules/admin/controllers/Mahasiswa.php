@@ -7,6 +7,7 @@ class Mahasiswa extends CI_Controller
   {
     parent::__construct();
     $this->load->model('Admin_model', 'admin');
+    is_logged_in();
   }
   public function index()
   {
@@ -57,5 +58,14 @@ class Mahasiswa extends CI_Controller
       <strong>Success - </strong> Data Tersimpan!</div>');
       redirect('admin/mahasiswa');
     }
+  }
+  public function update_all_year()
+  {
+    $year = $this->input->post('year_id');
+
+    $this->db->set('year_id', $year);
+    $this->db->update('mahasiswa');
+    $this->db->where('id_mhs');
+    redirect('admin/mahasiswa');
   }
 }

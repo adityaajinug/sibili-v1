@@ -15,8 +15,8 @@ class Ujian extends CI_Controller
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->kki->getDosen(),
       'mhs' => $this->kki->getMhs(),
-      'upload_form' => $this->kki->getFormUpload(),
-      'upload' => $this->kki->getUpload(),
+      // 'upload_form' => $this->kki->getFormUpload(),
+      // 'upload' => $this->kki->getUpload(),
     ];
     $this->template->load('templates/templates', 'ujian/index', $data);
   }
@@ -27,8 +27,8 @@ class Ujian extends CI_Controller
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->kki->getDosen(),
       'mhs' => $this->kki->getMhs(),
-      'upload_form' => $this->kki->getFormUpload(),
-      'upload' => $this->kki->getUpload(),
+      // 'upload_form' => $this->kki->getFormUpload(),
+      // 'upload' => $this->kki->getUpload(),
     ];
     $this->template->load('templates/templates', 'ujian/kki_pertama/index', $data);
   }

@@ -26,7 +26,7 @@ class Admin_model extends CI_Model
       ->select('dosen.*, user.*, user_role.*')
       ->from('dosen')
       ->join('user', 'user.id_user = dosen.user_id')
-      ->join('user_role', 'user_role.id = user.role_id');
+      ->join('user_role', 'user_role.id = user.role_id')->order_by('user.username', 'asc');
 
     return $this->db->get()->result_array();
   }
@@ -36,7 +36,9 @@ class Admin_model extends CI_Model
       ->select('mahasiswa.*, user.*, user_role.*')
       ->from('mahasiswa')
       ->join('user', 'user.id_user = mahasiswa.user_id')
-      ->join('user_role', 'user_role.id = user.role_id');
+      ->join('user_role', 'user_role.id = user.role_id')
+      ->order_by('user.username', 'asc');
+
 
     return $this->db->get()->result_array();
   }

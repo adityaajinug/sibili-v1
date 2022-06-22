@@ -7,6 +7,7 @@ class Admin extends CI_Controller
   {
     parent::__construct();
     $this->load->model('Admin_model', 'admin');
+    is_logged_in();
   }
 
   public function role()
@@ -84,23 +85,23 @@ class Admin extends CI_Controller
     $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
     <strong>Success - </strong> Role Akses Telah diubah</div>');
   }
-  public function tahun_ajaran()
-  {
-    $data = [
-      'title' => 'Detail Tahun Ajaran',
-      'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
-      'th' => $this->db->get('school_year')->result_array()
-    ];
-    $this->template->load('templates/templates', 'tahun_ajaran/index', $data);
-  }
-  public function tambah_tahun_ajaran()
-  {
-    $data = [
-      'year' => $this->input->post('year')
-    ];
-    $this->db->insert('school_year', $data);
-    $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
-    <strong>Success - </strong> Data Telah Tersimpan</div>');
-    redirect('admin/tahun_ajaran');
-  }
+  // public function tahun_ajaran()
+  // {
+  //   $data = [
+  //     'title' => 'Detail Tahun Ajaran',
+  //     'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
+  //     'th' => $this->db->get('school_year')->result_array()
+  //   ];
+  //   $this->template->load('templates/templates', 'tahun_ajaran/index', $data);
+  // }
+  // public function tambah_tahun_ajaran()
+  // {
+  //   $data = [
+  //     'year' => $this->input->post('year')
+  //   ];
+  //   $this->db->insert('school_year', $data);
+  //   $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+  //   <strong>Success - </strong> Data Telah Tersimpan</div>');
+  //   redirect('admin/tahun_ajaran');
+  // }
 }

@@ -23,7 +23,11 @@ class Referensi_model extends CI_Model
   }
   public function getIndustri()
   {
-    return $this->db->get('industries')->result_array();
+    $this->db->select('industries.*, industries_address.address, industries_address.industries_id, industries_address.maps')
+      ->from('industries')
+      ->join('industries_address', 'industries_address.industries_id = industries.id_industries');
+
+    return $this->db->get()->result_array();
   }
   public function getUpload()
   {
@@ -43,10 +47,13 @@ class Referensi_model extends CI_Model
       ->from('upload')
       ->join('user', 'upload.user_id = user.id_user')
       ->where('upload.tahun=', 2019)
-      ->where('upload.category_upload=', 1)
-      ->where('upload.id_upload=', $id);
+      ->where('upload.category_upload=', 1);
 
 
     return $this->db->get()->result_array();
+  }
+  public function getAjaran()
+  {
+    return $this->db->get('school_year')->result_array();
   }
 }

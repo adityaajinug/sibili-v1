@@ -35,6 +35,7 @@ class Referensi extends CI_Controller
       'user' => $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array(),
       'dosen' => $this->referensi->getDosen(),
       'mhs' => $this->referensi->getMhs(),
+      'th' => $this->referensi->getAjaran(),
       'laporan' => $this->referensi->getUpload()
     ];
     $this->template->load('templates/templates', 'laporan/index', $data);

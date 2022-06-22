@@ -15,7 +15,6 @@
                   <th>Tanggal</th>
                   <th>Waktu</th>
                   <th>Semester</th>
-                  <th>Tahun Ajaran</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -36,7 +35,7 @@
                   <?php } else { ?>
                     <span class="badge badge-pill badge-warning py-2 px-3">Genap</span>
                   <?php } ?>
-                  <td><?= $f['year'] ?></td>
+
                   <td>
                     <a href="<?= base_url('sertifikasi/detail_schedule/' . $f['id_year'] . '/' .  $f['id_schedule']) ?>" class="badge badge-pill badge-success py-2 px-3"> Detail</a>
                   </td>
